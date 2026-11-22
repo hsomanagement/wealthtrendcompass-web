@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Trend Compass | Financial Weather Intelligence</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nordic: {
+                            bg: '#FAF8F5',
+                            card: '#FFFFFF',
+                            section: '#F1F5F4',
+                            border: '#E2E8F0',
+                            text: '#475569',
+                            heading: '#1E293B'
+                        },
+                        tealAccent: {
+                            DEFAULT: '#0D9488',
+                            hover: '#0F766E',
+                            light: '#CCFBF1'
+                        },
+                        amberBrass: {
+                            DEFAULT: '#D97706',
+                            light: '#FEF3C7'
+                        },
+                        coralAlert: {
+                            DEFAULT: '#E11D48',
+                            light: '#FFE4E6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['Fraunces', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #475569;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Fraunces', serif;
+        }
+        /* Custom Brass Dial Styling */
+        .brass-bezel {
+            background: radial-gradient(circle at 30% 30%, #fef3c7, #d97706 60%, #78350f 100%);
+            box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+        }
+        .dial-face {
+            background: radial-gradient(circle, #ffffff 0%, #faf8f5 100%);
+            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+        .needle-transition {
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-tealAccent-light selection:text-tealAccent-hover">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-tealAccent flex items-center justify-center text-white shadow-md shadow-tealAccent/20 group-hover:scale-105 transition-transform">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9" stroke-width="2" />
+                        <polygon points="12 6 15 12 12 18 9 12" fill="currentColor" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-heading text-xl font-bold text-nordic-heading block leading-tight">Wealth Trend Compass</span>
+                    <span class="text-xs font-semibold text-tealAccent tracking-wider uppercase">Financial Weather Intelligence</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-nordic-text">
+                <a href="#how-it-works" class="hover:text-tealAccent transition-colors">How It Works</a>
+                <a href="#mandate-trap" class="hover:text-tealAccent transition-colors">The Mandate Trap</a>
+                <a href="#instruments" class="hover:text-tealAccent transition-colors">Core Instruments</a>
+                <a href="#simulator" class="hover:text-tealAccent transition-colors">Crash Simulator</a>
+                <a href="#pricing" class="hover:text-tealAccent transition-colors">Pricing</a>
+                <a href="#faq" class="hover:text-tealAccent transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <button onclick="openModal('signin')" class="text-sm font-semibold text-nordic-heading hover:text-tealAccent px-4 py-2 rounded-lg transition-colors">
+                    Sign In
+                </button>
+                <a href="https://wealth-trend-compass.streamlit.app" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-tealAccent hover:bg-tealAccent-hover text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-md shadow-tealAccent/20 transition-all transform hover:-translate-y-0.5">
+                    <span>Launch Cockpit</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION WITH MARITIME COCKPIT SIMULATOR -->
+    <section class="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amberBrass-light text-amberBrass text-xs font-bold uppercase tracking-wider mb-4 border border-amberBrass/20">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                </svg>
+                Regime Shift Protection
+            </span>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-nordic-heading leading-tight mb-6">
+                Measure the Financial Air Pressure Before the Storm Hits Your Retirement.
+            </h1>
+            <p class="text-base sm:text-lg text-nordic-text leading-relaxed">
+                Sleep soundly through market turmoil. A calm 2-minute Friday check gives you institutional macro radar to preserve your life savings—without day-trading, screen watching, or financial jargon.
+            </p>
+        </div>
+
+        <!-- Cockpit Simulator Wrapper -->
+        <div id="how-it-works" class="bg-white rounded-3xl p-6 lg:p-8 shadow-xl border border-slate-200/80">
+            <!-- Phase Controller Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 pb-6 border-b border-slate-100">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Select Regime State:</span>
+                <div class="grid grid-cols-2 sm:grid-flex sm:flex flex-wrap gap-2 w-full sm:w-auto">
+                    <button onclick="setWeatherPhase(0)" id="phase-btn-0" class="weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-tealAccent text-white border-tealAccent shadow-sm">
+                        <span>☀️</span> High Pressure
+                    </button>
+                    <button onclick="setWeatherPhase(1)" id="phase-btn-1" class="weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>⛅</span> Shifting Winds
+                    </button>
+                    <button onclick="setWeatherPhase(2)" id="phase-btn-2" class="weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>🌩️</span> Low Pressure
+                    </button>
+                    <button onclick="setWeatherPhase(3)" id="phase-btn-3" class="weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100">
+                        <span>🚨</span> Hurricane Warning
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cockpit Viewport & Gauges Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <!-- 2D Canvas Sailor Viewport (8 Cols) -->
+                <div class="lg:col-span-8 relative rounded-2xl overflow-hidden bg-slate-900 shadow-inner flex flex-col justify-between min-h-[320px] lg:min-h-[400px]">
+                    <canvas id="cockpitCanvas" class="absolute inset-0 w-full h-full object-cover"></canvas>
+                    
+                    <!-- HUD Overlay Top -->
+                    <div class="relative z-10 p-4 flex justify-between items-start pointer-events-none">
+                        <div class="bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-700 text-white text-xs flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span id="hudRegimeText" class="font-bold tracking-wide">STATE: HIGH PRESSURE (FULL SAIL)</span>
+                        </div>
+                        <div id="safeHarborHUD" class="bg-amber-500/90 backdrop-blur-md text-slate-900 px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 shadow-lg hidden">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>SAFE HARBOR WAYPOINT ACTIVE</span>
+                        </div>
+                    </div>
+
+                    <!-- HUD Overlay Bottom -->
+                    <div class="relative z-10 p-4 bg-gradient-to-t from-slate-950/90 to-transparent text-white flex justify-between items-end pointer-events-none">
+                        <div>
+                            <div class="text-[10px] uppercase text-slate-400 font-bold">Cockpit Horizon Telemetry</div>
+                            <div id="hudSubText" class="text-xs sm:text-sm font-medium text-slate-200">Conditions optimal. Equity risk premium favorable.</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] text-slate-400 block font-bold">WIND ANGLE / TILT</span>
+                            <span id="hudTiltText" class="text-sm font-mono text-teal-300">0.0° Level</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gauges Column (4 Cols) -->
+                <div class="lg:col-span-4 bg-nordic-bg rounded-2xl p-5 border border-slate-200/80 flex flex-col justify-between gap-6">
+                    <!-- Physical Brass Barometer -->
+                    <div class="text-center">
+                        <span class="text-xs font-bold text-nordic-heading uppercase tracking-wider block mb-3">Atmospheric Risk Barometer</span>
+                        <div class="relative w-44 h-44 mx-auto rounded-full brass-bezel p-3 flex items-center justify-center">
+                            <div class="w-full h-full rounded-full dial-face relative flex items-center justify-center p-2">
+                                <!-- Dial Labels -->
+                                <span class="absolute top-3 text-[9px] font-bold text-emerald-700 tracking-tighter">HIGH PRESS</span>
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-amber-600">SHIFTING</span>
+                                <span class="absolute bottom-3 text-[9px] font-bold text-orange-600">STORMY</span>
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-rose-600">HURRICANE</span>
+
+                                <!-- Dial Center Cap & Needle -->
+                                <div class="relative w-full h-full flex items-center justify-center">
+                                    <!-- Needle SVG -->
+                                    <div id="barometerNeedle" class="absolute w-full h-full flex items-center justify-center needle-transition" style="transform: rotate(45deg);">
+                                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                                            <polygon points="50,15 46,50 54,50" fill="#E11D48" />
+                                            <polygon points="50,85 47,50 53,50" fill="#475569" />
+                                            <circle cx="50" cy="50" r="4" fill="#D97706" />
+                                        </svg>
+                                    </div>
+                                    <div class="w-4 h-4 rounded-full bg-amberBrass shadow-sm border-2 border-white z-10"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nautical Compass HUD Badge -->
+                    <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm text-center">
+                        <div class="flex items-center justify-center gap-2 mb-1">
+                            <svg class="w-4 h-4 text-amberBrass" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-xs font-bold text-nordic-heading uppercase">Navigation Vector</span>
+                        </div>
+                        <div id="gaugeVectorText" class="text-sm font-bold text-tealAccent">
+                            100% Equity Tailwind / Growth Allocation
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Dynamic Live Action Cards -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1: Workplace Pensions & 401(k) / IRA -->
+                <div class="bg-nordic-bg rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Account Type 01</span>
+                            <span class="w-2 h-2 rounded-full bg-tealAccent"></span>
+                        </div>
+                        <h4 class="font-heading font-bold text-base text-nordic-heading mb-2">Workplace Pensions & 401(k) / IRA</h4>
+                        <p class="text-xs text-nordic-text mb-4 leading-relaxed">
+                            Employer-managed pension pots, target-date funds, and tax-deferred retirement accounts.
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-xl p-3 border border-slate-200">
+                        <span class="text-[10px] font-bold text-slate-400 block uppercase">Recommended Action</span>
+                        <div id="card1Action" class="text-sm font-bold text-tealAccent mt-0.5">
+                            Maintain 100% Global Stocks & High Growth Fund Choices
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Robo-Advisors & Target-Risk Funds -->
+                <div class="bg-nordic-bg rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Account Type 02</span>
+                            <span class="w-2 h-2 rounded-full bg-amberBrass"></span>
+                        </div>
+                        <h4 class="font-heading font-bold text-base text-nordic-heading mb-2">Robo-Advisors & Target-Risk</h4>
+                        <p class="text-xs text-nordic-text mb-4 leading-relaxed">
+                            Automated wealth platforms, balanced index funds, and managed portfolio solutions.
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-xl p-3 border border-slate-200">
+                        <span class="text-[10px] font-bold text-slate-400 block uppercase">Recommended Action</span>
+                        <div id="card2Action" class="text-sm font-bold text-tealAccent mt-0.5">
+                            Set Risk Profile to Maximum Growth (Aggressive Stock Allocation)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Self-Directed ETF Accounts -->
+                <div class="bg-nordic-bg rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Account Type 03</span>
+                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                        </div>
+                        <h4 class="font-heading font-bold text-base text-nordic-heading mb-2">Self-Directed ETF Accounts</h4>
+                        <p class="text-xs text-nordic-text mb-4 leading-relaxed">
+                            Personal brokerage accounts holding broad US & EU broad-market equities vs. safe cash funds.
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-xl p-3 border border-slate-200">
+                        <span class="text-[10px] font-bold text-slate-400 block uppercase">Recommended Action</span>
+                        <div id="card3Action" class="text-sm font-bold text-tealAccent mt-0.5">
+                            Hold Core Equity Index ETFs (e.g., SPY / SXR8.DE)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE PENSION MANDATE TRAP SECTION -->
+    <section id="mandate-trap" class="py-16 bg-nordic-section border-y border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold text-coralAlert uppercase tracking-wider block mb-2">Structural Market Flaw</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-nordic-heading mb-4">
+                    The Pension Mandate Trap: Why Financial Advisers Can't Step on the Brakes
+                </h2>
+                <p class="text-nordic-text text-base leading-relaxed">
+                    When systemic market crashes hit, institutional pension managers and robo-advisors stand by and let your portfolio fall by -30% or -40%. It is not lack of skill—it is a legal mandate box.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                <!-- Institutional Supertanker -->
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-rose-100 text-coralAlert text-xs font-bold px-4 py-1.5 rounded-bl-2xl">
+                        HANDS TIED BY MANDATE
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-rose-50 flex items-center justify-center text-coralAlert mb-6">
+                            🚢
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-nordic-heading mb-4">
+                            The Institutional Supertanker
+                        </h3>
+                        <p class="text-sm text-nordic-text leading-relaxed mb-6">
+                            Institutional funds are legally obligated by prospectus rules to stay 80% to 100% invested in equities at all times according to the static risk questionnaire you filled out years ago.
+                        </p>
+                        <ul class="space-y-3 text-sm text-nordic-text mb-6">
+                            <li class="flex items-start gap-3">
+                                <span class="text-coralAlert font-bold">✕</span>
+                                <span>Cannot move to cash even when credit spreads blow out and volatility spikes.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-coralAlert font-bold">✕</span>
+                                <span>Forced to rebalance *into* falling assets during historic systemic meltdowns.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-coralAlert font-bold">✕</span>
+                                <span>Takes 5–7 years just to recover lost capital back to zero.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-rose-50 rounded-2xl p-4 border border-rose-100 text-xs text-rose-900 font-medium">
+                        Result: Your retirement timeline gets delayed by nearly a decade while paying annual asset management fees.
+                    </div>
+                </div>
+
+                <!-- Your Personal Speedboat -->
+                <div class="bg-white rounded-3xl p-8 border-2 border-tealAccent shadow-lg relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-tealAccent text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl">
+                        30-SECOND RISK SWITCH
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-tealAccent-light flex items-center justify-center text-tealAccent mb-6">
+                            🚤
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-nordic-heading mb-4">
+                            Your Personal Speedboat
+                        </h3>
+                        <p class="text-sm text-nordic-text leading-relaxed mb-6">
+                            With Wealth Trend Compass, you remain in complete control of your capital. When atmospheric pressure drops, you execute a simple 30-second adjustment in your existing pension or brokerage account.
+                        </p>
+                        <ul class="space-y-3 text-sm text-nordic-text mb-6">
+                            <li class="flex items-start gap-3">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Switch pension allocations into Stable Value or Short-Term Money Market ETFs.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Bypass the entire drawdown storm while earning steady risk-free cash yield.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Re-deploy into high-tailwind equity sectors when the barometer signals Clear Skies.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-tealAccent-light/60 rounded-2xl p-4 border border-tealAccent/20 text-xs text-teal-900 font-semibold">
+                        Result: Compound your capital safely without enduring heart-wrenching 30%+ portfolio crashes.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DUAL CORE INSTRUMENTS SECTION -->
+    <section id="instruments" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+            <span class="text-xs font-bold text-tealAccent uppercase tracking-wider block mb-2">Scientific Precision</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-nordic-heading mb-4">
+                Dual Institutional Weather Instruments
+            </h2>
+            <p class="text-nordic-text text-base leading-relaxed">
+                We monitor the institutional plumbing under the surface so you don't have to read financial news or analyze charts.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Instrument 1: Risk Barometer -->
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-amberBrass-light flex items-center justify-center text-amberBrass font-bold">
+                            01
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-nordic-heading">The Financial Risk Barometer</h3>
+                            <span class="text-xs text-slate-400 font-semibold">Macro Credit & Volatility Sensors</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-nordic-text leading-relaxed mb-6">
+                        Measures systemic liquidity and atmospheric pressure across 3 underlying institutional precursor sensors:
+                    </p>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-nordic-bg border border-slate-200/80">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-nordic-heading">Credit Spreads (HYG vs. IEF)</span>
+                                <span class="text-xs font-semibold text-emerald-600">Tight / Safe</span>
+                            </div>
+                            <p class="text-xs text-nordic-text">Tracks high-yield corporate default risk vs. treasury safe havens before stock market slides.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-nordic-bg border border-slate-200/80">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-nordic-heading">Market Breadth</span>
+                                <span class="text-xs font-semibold text-emerald-600">Broad Participation</span>
+                            </div>
+                            <p class="text-xs text-nordic-text">Evaluates if market advances are supported by the majority of stocks or just a few mega-caps.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-nordic-bg border border-slate-200/80">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-nordic-heading">Options Term Structure (VIX vs. VIX3M)</span>
+                                <span class="text-xs font-semibold text-emerald-600">Contango / Calm</span>
+                            </div>
+                            <p class="text-xs text-nordic-text">Detects institutional panic buying of short-term downside protection options.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instrument 2: Sector & Geography Compass -->
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-tealAccent-light flex items-center justify-center text-tealAccent font-bold">
+                            02
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-nordic-heading">The Sector & Geography Compass</h3>
+                            <span class="text-xs text-slate-400 font-semibold">Tailwind Sector Radar</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-nordic-text leading-relaxed mb-6">
+                        Identifies where capital is flowing across global regions and industry sectors during bull cycles, and triggers Safe Harbor rotations during bear regimes:
+                    </p>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-nordic-bg border border-slate-200/80">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-nordic-heading">Tailwind Equity Sectors</span>
+                                <span class="text-xs font-semibold text-tealAccent">Tech / Industrials</span>
+                            </div>
+                            <p class="text-xs text-nordic-text">Highlights top-performing equity sectors with maximum wind at their back.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-nordic-bg border border-slate-200/80">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-nordic-heading">Headwind Risk Sectors</span>
+                                <span class="text-xs font-semibold text-amber-600">Lagging Segments</span>
+                            </div>
+                            <p class="text-xs text-nordic-text">Warns against stagnant sectors losing momentum and institutional flows.</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-nordic-bg border border-slate-200/80">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold text-nordic-heading">Safe Harbor Cash Rotation</span>
+                                <span class="text-xs font-semibold text-slate-700">SGOV / XEON.DE</span>
+                            </div>
+                            <p class="text-xs text-nordic-text">Signals exact timing to shift equity allocations into short-term ultra-safe money market cash ETFs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE DRAWDOWN & COMPOUNDING SIMULATOR -->
+    <section id="simulator" class="py-16 bg-nordic-section border-t border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold text-tealAccent uppercase tracking-wider block mb-2">Interactive Math</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-nordic-heading mb-4">
+                    Drawdown Math & Portfolio Protection Simulator
+                </h2>
+                <p class="text-nordic-text text-base leading-relaxed">
+                    Test how avoiding severe market drawdowns changes your retirement wealth over multiple market cycles.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Sliders Panel (5 Cols) -->
+                <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="font-heading text-xl font-bold text-nordic-heading pb-4 border-b border-slate-100">
+                        Simulation Parameters
+                    </h3>
+
+                    <!-- Slider 1: Portfolio Value -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="sliderPortfolio" class="text-xs font-bold text-nordic-heading uppercase">Portfolio / Pension Value</label>
+                            <span id="valPortfolio" class="text-sm font-bold text-tealAccent">$250,000</span>
+                        </div>
+                        <input type="range" id="sliderPortfolio" min="50000" max="1000000" step="25000" value="250000" class="w-full accent-tealAccent bg-slate-200 rounded-lg h-2 cursor-pointer">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                            <span>$50,000</span>
+                            <span>$1,000,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 2: Time Horizon -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="sliderHorizon" class="text-xs font-bold text-nordic-heading uppercase">Time Horizon</label>
+                            <span id="valHorizon" class="text-sm font-bold text-tealAccent">18 Years</span>
+                        </div>
+                        <input type="range" id="sliderHorizon" min="10" max="25" step="1" value="18" class="w-full accent-tealAccent bg-slate-200 rounded-lg h-2 cursor-pointer">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                            <span>10 Years</span>
+                            <span>25 Years</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 3: Crash Severity -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="sliderCrash" class="text-xs font-bold text-nordic-heading uppercase">Average Market Crash Severity</label>
+                            <span id="valCrash" class="text-sm font-bold text-coralAlert">-30%</span>
+                        </div>
+                        <input type="range" id="sliderCrash" min="20" max="50" step="5" value="30" class="w-full accent-coralAlert bg-slate-200 rounded-lg h-2 cursor-pointer">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                            <span>-20%</span>
+                            <span>-50%</span>
+                        </div>
+                    </div>
+
+                    <!-- Live Break-Even Math Callout -->
+                    <div class="bg-amber-50 rounded-2xl p-4 border border-amber-200/80">
+                        <span class="text-[10px] font-bold text-amber-800 uppercase block mb-1">The Asymmetric Loss Trap</span>
+                        <div class="text-xs text-amber-900 leading-relaxed">
+                            A <span id="mathCrashPct" class="font-bold text-coralAlert">-30%</span> market drop requires a 
+                            <span id="mathRecoveryPct" class="font-bold text-emerald-700">+42.9%</span> gain just to break even back to zero.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Output & Canvas Line Chart (7 Cols) -->
+                <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col justify-between min-h-[460px]">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-nordic-heading">Projected Portfolio Outcome</h3>
+                            <span class="text-xs text-slate-400 font-medium">3 Full Market Cycles Comparison</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs font-semibold">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-full bg-slate-400"></span>
+                                <span class="text-slate-600">Buy & Hold</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-full bg-tealAccent"></span>
+                                <span class="text-tealAccent">Barometer Protected</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Line Chart -->
+                    <div class="relative w-full h-64 sm:h-72 bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                        <canvas id="chartCanvas" class="w-full h-full"></canvas>
+                    </div>
+
+                    <!-- Results Summary Grid -->
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase block">Unprotected Buy & Hold</span>
+                            <span id="resUnprotected" class="text-lg sm:text-xl font-bold text-slate-700 block mt-1">$448,200</span>
+                        </div>
+                        <div class="bg-tealAccent-light/50 p-4 rounded-2xl border border-tealAccent/30">
+                            <span class="text-[10px] font-bold text-teal-800 uppercase block">Barometer Protected</span>
+                            <span id="resProtected" class="text-lg sm:text-xl font-bold text-tealAccent block mt-1">$812,500</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTHENTIC HERITAGE & INVESTOR PROFILES -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Founder Story -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm mb-16">
+            <div class="max-w-3xl">
+                <span class="text-xs font-bold text-amberBrass uppercase tracking-wider block mb-2">Proven Empirical Roots</span>
+                <h2 class="text-3xl font-bold text-nordic-heading mb-4">
+                    The Founder's Track Record (Built & Refined Since 2008)
+                </h2>
+                <p class="text-nordic-text text-base leading-relaxed mb-4">
+                    Wealth Trend Compass was born out of a real-world necessity during the Great Financial Crisis of 2008. Watching years of hard-earned family savings evaporate in unguided market crashes sparked a relentless search for institutional regime indicators that signal high atmospheric risk *before* catastrophic drawdowns occur.
+                </p>
+                <p class="text-nordic-text text-base leading-relaxed">
+                    By tracking macroeconomic credit spreads, options market volatility structure, and breadth divergence, this framework successfully navigated major market corrections—including 2008, 2020, and 2022—by rotating systematically into safe-harbor money market cash yields. Today, it brings that same calm, institutional-grade radar directly to independent investors worldwide.
+                </p>
+            </div>
+        </div>
+
+        <!-- 3 Typical Investor Profiles -->
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="text-xs font-bold text-tealAccent uppercase tracking-wider block mb-2">Who It's For</span>
+            <h2 class="text-3xl font-bold text-nordic-heading">Built for Every Retirement Account Type</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Profile 1 -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-tealAccent-light flex items-center justify-center text-tealAccent text-lg font-bold mb-4">
+                        👔
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-nordic-heading mb-2">Workplace Pension Saver</h3>
+                    <p class="text-xs text-nordic-text leading-relaxed">
+                        Holds standard corporate 401(k), IRA, or workplace pension funds with set risk profile options (e.g. Growth, Balanced, Stable Cash).
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-teal-800 font-semibold">
+                    Uses WTC signals to switch pension fund risk categories in 30 seconds when storm warnings trigger.
+                </div>
+            </div>
+
+            <!-- Profile 2 -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-amberBrass-light flex items-center justify-center text-amberBrass text-lg font-bold mb-4">
+                        📈
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-nordic-heading mb-2">Self-Directed ETF Investor</h3>
+                    <p class="text-xs text-nordic-text leading-relaxed">
+                        Manages personal brokerage accounts with US or EU UCITS ETFs (e.g. SPY, SXR8.DE, SGOV, XEON.DE).
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-amber-900 font-semibold">
+                    Uses Sector Compass to capture strong equity tailwinds and rotate to short-term cash yields when regime shifts hit.
+                </div>
+            </div>
+
+            <!-- Profile 3 -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-coralAlert text-lg font-bold mb-4">
+                        🛡️
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-nordic-heading mb-2">Pre-Retirement Preserver</h3>
+                    <p class="text-xs text-nordic-text leading-relaxed">
+                        Within 5 to 10 years of retirement, where a single 40% crash can permanently derail financial freedom.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-rose-900 font-semibold">
+                    Gains ultimate peace of mind knowing capital is protected against sequence-of-returns crash risk.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRANSPARENT PRICING SECTION -->
+    <section id="pricing" class="py-16 bg-nordic-section border-t border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-xs font-bold text-tealAccent uppercase tracking-wider block mb-2">Transparent Membership</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-nordic-heading mb-4">
+                    Simple, Institutional-Grade Pricing
+                </h2>
+                <p class="text-nordic-text text-base leading-relaxed mb-6">
+                    No hidden percentage management fees. All plans include VAT (EU OSS handled automatically).
+                </p>
+
+                <!-- Billing Toggle -->
+                <div class="inline-flex items-center gap-3 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm">
+                    <button id="toggleMonthly" onclick="setBilling('monthly')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-tealAccent text-white">
+                        Monthly Billing
+                    </button>
+                    <button id="toggleAnnual" onclick="setBilling('annual')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all text-nordic-text hover:text-nordic-heading">
+                        Annual Billing <span class="bg-amberBrass-light text-amberBrass px-2 py-0.5 rounded-full text-[10px] ml-1">2 Months Free</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+                <!-- Free Crew Tier -->
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-heading text-2xl font-bold text-nordic-heading">Free Crew</h3>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold">Forever Free</span>
+                        </div>
+                        <div class="text-3xl font-bold text-nordic-heading mb-6">
+                            €0 <span class="text-xs font-normal text-slate-400">/ forever</span>
+                        </div>
+                        <ul class="space-y-3 text-xs text-nordic-text mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Weekly Barometer Status (Delayed Signal)</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Top 3 Tailwind Sector Summary</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>3 Ticker X-Ray lookups per month</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('signup-free')" class="w-full py-3 rounded-xl border border-slate-300 font-bold text-sm text-nordic-heading hover:bg-slate-50 transition-colors">
+                        Join Free Crew
+                    </button>
+                </div>
+
+                <!-- Pro Captain Tier -->
+                <div class="bg-white rounded-3xl p-8 border-2 border-tealAccent shadow-xl relative flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-tealAccent text-white text-[10px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-bl-2xl">
+                        RECOMMENDED FOR INVESTORS
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-heading text-2xl font-bold text-nordic-heading">Pro Captain</h3>
+                            <span class="px-3 py-1 bg-tealAccent-light text-teal-800 rounded-full text-xs font-bold">Full Radar</span>
+                        </div>
+                        <div class="text-3xl font-bold text-nordic-heading mb-1">
+                            <span id="proPriceText">€24</span> <span id="proPeriodText" class="text-xs font-normal text-slate-400">/ month</span>
+                        </div>
+                        <span id="proBillingSubtext" class="text-[11px] text-slate-400 block mb-6">Billed monthly. Cancel anytime. VAT included.</span>
+
+                        <ul class="space-y-3 text-xs text-nordic-text mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Real-time Friday 2-Minute Cockpit Barometer Signals</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Full Sector & Regional Geography Compass Access</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Unlimited ETF & Pension Fund X-Ray Lookups</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-tealAccent font-bold">✓</span>
+                                <span>Safe Harbor Rotation Timing & Yield Radar</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('stripe')" class="w-full py-3.5 rounded-xl bg-tealAccent hover:bg-tealAccent-hover text-white font-bold text-sm shadow-md shadow-tealAccent/20 transition-all">
+                        Get Pro Radar Access
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive Basis-Point Perspective Box -->
+            <div class="max-w-3xl mx-auto bg-white rounded-2xl p-6 border border-amberBrass/30 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-amberBrass-light flex items-center justify-center text-amberBrass text-xl flex-shrink-0">
+                        ⚖️
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-bold text-base text-nordic-heading">The Basis-Point Fee Perspective</h4>
+                        <p class="text-xs text-nordic-text">
+                            An annual Pro subscription (€240/yr) equals just <span class="font-bold text-tealAccent">0.096% (9.6 bps)</span> on a €250,000 portfolio—compared to standard bank advisor fees of 1.25% (€3,125/yr).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKEPTIC'S & SEO FAQ ACCORDION -->
+    <section id="faq" class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="text-xs font-bold text-tealAccent uppercase tracking-wider block mb-2">Common Questions</span>
+            <h2 class="text-3xl font-bold text-nordic-heading mb-4">Frequently Asked Questions</h2>
+            <p class="text-nordic-text text-sm">Everything you need to know about our financial weather signals.</p>
+        </div>
+
+        <div class="space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <button onclick="toggleFAQ(1)" class="w-full p-5 text-left flex justify-between items-center font-bold text-nordic-heading text-base focus:outline-none">
+                    <span>Isn't market timing impossible? If everyone did this, wouldn't crashes stop?</span>
+                    <span id="faq-icon-1" class="text-tealAccent text-xl transition-transform">+</span>
+                </button>
+                <div id="faq-content-1" class="hidden p-5 pt-0 text-xs sm:text-sm text-nordic-text leading-relaxed border-t border-slate-100">
+                    We do not attempt day-trading or predicting tops and bottoms. Wealth Trend Compass measures macroeconomic air pressure (credit spreads, liquidity, options term structure). Systemic crashes take months to play out. Because major financial institutions are legally bound by mandates to stay fully invested, retail investors with personal speedboats can easily step aside into short-term yield cash funds during severe regime shifts.
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <button onclick="toggleFAQ(2)" class="w-full p-5 text-left flex justify-between items-center font-bold text-nordic-heading text-base focus:outline-none">
+                    <span>How much time does this take each week?</span>
+                    <span id="faq-icon-2" class="text-tealAccent text-xl transition-transform">+</span>
+                </button>
+                <div id="faq-content-2" class="hidden p-5 pt-0 text-xs sm:text-sm text-nordic-text leading-relaxed border-t border-slate-100">
+                    Exactly 2 minutes on Friday afternoon. You check the cockpit barometer dashboard. If the state is High Pressure or Shifting, you take zero action. If a Low Pressure or Hurricane Warning triggers, you log into your pension or broker and execute a pre-planned risk shift.
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <button onclick="toggleFAQ(3)" class="w-full p-5 text-left flex justify-between items-center font-bold text-nordic-heading text-base focus:outline-none">
+                    <span>Do you manage my money or connect to my bank account?</span>
+                    <span id="faq-icon-3" class="text-tealAccent text-xl transition-transform">+</span>
+                </button>
+                <div id="faq-content-3" class="hidden p-5 pt-0 text-xs sm:text-sm text-nordic-text leading-relaxed border-t border-slate-100">
+                    No. Wealth Trend Compass is purely a financial weather intelligence tool. We never hold client funds or request API access to your bank. You retain 100% control over your funds and execute any adjustments yourself inside your existing retirement or brokerage account.
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <button onclick="toggleFAQ(4)" class="w-full p-5 text-left flex justify-between items-center font-bold text-nordic-heading text-base focus:outline-none">
+                    <span>What funds do I use during a Hurricane Warning?</span>
+                    <span id="faq-icon-4" class="text-tealAccent text-xl transition-transform">+</span>
+                </button>
+                <div id="faq-content-4" class="hidden p-5 pt-0 text-xs sm:text-sm text-nordic-text leading-relaxed border-t border-slate-100">
+                    During a Hurricane regime, capital is safely allocated to ultra-short-term treasury yield ETFs (such as SGOV in the US or XEON.DE in Europe) or your pension provider's Stable Value / Money Market fund choice. This keeps your capital safe while continuing to generate risk-free interest yield.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-tealAccent flex items-center justify-center text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9" stroke-width="2" />
+                        <polygon points="12 6 15 12 12 18 9 12" fill="currentColor" />
+                    </svg>
+                </div>
+                <span class="font-heading font-bold text-lg text-white">Wealth Trend Compass</span>
+            </div>
+            <div class="text-xs text-slate-400 text-center md:text-right">
+                <p>&copy; 2026 WealthTrendCompass.com. Financial Weather Intelligence. All rights reserved.</p>
+                <p class="mt-1 text-slate-500">Disclaimer: Information provided is for educational and informational purposes only and does not constitute personal financial advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SIGN-IN / STRIPE CHECKOUT MODAL -->
+    <div id="modalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold">
+                ✕
+            </button>
+
+            <!-- Modal Header -->
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-tealAccent-light flex items-center justify-center text-tealAccent mx-auto mb-3 text-xl">
+                    🧭
+                </div>
+                <h3 id="modalTitle" class="font-heading text-2xl font-bold text-nordic-heading">Access WTC Cockpit</h3>
+                <p id="modalSub" class="text-xs text-nordic-text mt-1">Enter your credentials to launch your financial weather dashboard.</p>
+            </div>
+
+            <!-- Modal Form -->
+            <form onsubmit="handleModalSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-nordic-heading uppercase mb-1">Email Address</label>
+                    <input type="email" required placeholder="captain@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-tealAccent">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-nordic-heading uppercase mb-1">Password</label>
+                    <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-tealAccent">
+                </div>
+                <button type="submit" id="modalSubmitBtn" class="w-full py-3.5 bg-tealAccent hover:bg-tealAccent-hover text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                    Sign In & Launch Cockpit
+                </button>
+            </form>
+            <div class="mt-4 text-center">
+                <span class="text-xs text-slate-400">Secured via 256-bit Stripe encryption & OAuth2.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC (Strict, clean, well-commented ES6 with zero SyntaxErrors) -->
+    <script>
+        // --- 1. STATE MANAGEMENT ---
+        let currentWeatherPhase = 0; // 0: High Press, 1: Shifting, 2: Low Press, 3: Hurricane
+        let currentBilling = 'monthly';
+
+        // Phase Configuration Data
+        const phaseData = [
+            {
+                name: "STATE: HIGH PRESSURE (FULL SAIL)",
+                sub: "Conditions optimal. Credit spreads tight. Maximum growth tailwind.",
+                tilt: "0.0° Level",
+                angle: 45, // Barometer needle rotation angle (degrees)
+                vector: "100% Equity Tailwind / Growth Allocation",
+                safeHarbor: false,
+                card1: "Maintain 100% Global Stocks & High Growth Fund Choices",
+                card2: "Set Risk Profile to Maximum Growth (Aggressive Stock Allocation)",
+                card3: "Hold Core Equity Index ETFs (e.g., SPY / SXR8.DE)"
+            },
+            {
+                name: "STATE: SHIFTING WINDS (REEF SAILS)",
+                sub: "Atmospheric divergence detected. Tighten stop-losses and review risk.",
+                tilt: "5.5° Heel",
+                angle: 115,
+                vector: "80% Equity Growth / 20% Safe Harbor Buffer",
+                safeHarbor: false,
+                card1: "Rebalance workplace pension into Moderate Growth / Balanced Index options",
+                card2: "Adjust Robo-Advisor from Aggressive to Balanced 70/30 profile",
+                card3: "Trim speculative momentum ETFs; accumulate short-term treasury buffer"
+            },
+            {
+                name: "STATE: LOW PRESSURE WARNING (REDUCE EXPOSURE)",
+                sub: "Pre-crash squall building. Credit spreads widening. Prepare defense.",
+                tilt: "14.0° Heavy Heel",
+                angle: 200,
+                vector: "40% Equity / 60% Safe Harbor Cash Yield",
+                safeHarbor: true,
+                card1: "Switch majority of pension funds to Stable Value / Money Market choices",
+                card2: "Set Robo-Advisor to Conservative Capital Preservation mode",
+                card3: "Shift equity allocations to short-term safe cash ETFs (SGOV / XEON.DE)"
+            },
+            {
+                name: "STATE: HURRICANE WARNING (SEEK SAFE HARBOR)",
+                sub: "Systemic storm active! Emergency capital protection. Cash yield focus.",
+                tilt: "22.5° Severe Heel",
+                angle: 290,
+                vector: "0% Equity Risk / 100% Safe Harbor Cash Yield (SGOV / XEON.DE)",
+                safeHarbor: true,
+                card1: "Move 100% of workplace pension to Guaranteed Capital / Money Market fund",
+                card2: "Switch Robo-Advisor completely to 100% Cash Yield preservation box",
+                card3: "100% Allocation in Short-Term Money Market ETFs (SGOV / XEON.DE)"
+            }
+        ];
+
+        // --- 2. MARITIME COCKPIT CANVAS ANIMATION ---
+        const cockpitCanvas = document.getElementById('cockpitCanvas');
+        const ctx = cockpitCanvas.getContext('2d');
+
+        let animationFrameId;
+        let waveOffset = 0;
+        let rainParticles = [];
+
+        // Initialize Rain Particles
+        for (let i = 0; i < 80; i++) {
+            rainParticles.push({
+                x: Math.random() * 800,
+                y: Math.random() * 500,
+                length: Math.random() * 15 + 10,
+                speed: Math.random() * 10 + 10
+            });
+        }
+
+        function resizeCockpitCanvas() {
+            if (!cockpitCanvas) return;
+            cockpitCanvas.width = cockpitCanvas.parentElement.clientWidth;
+            cockpitCanvas.height = cockpitCanvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCockpitCanvas);
+        resizeCockpitCanvas();
+
+        function drawCockpit() {
+            if (!ctx) return;
+            const width = cockpitCanvas.width;
+            const height = cockpitCanvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+
+            // Phase settings
+            const phase = currentWeatherPhase;
+            const heelAngle = phase === 0 ? 0 : phase === 1 ? 0.05 : phase === 2 ? 0.12 : 0.22;
+
+            // Save transform state for heel tilting animation
+            ctx.save();
+            ctx.translate(width / 2, height / 2);
+            ctx.rotate(Math.sin(Date.now() * 0.0015) * 0.03 + (phase === 3 ? Math.sin(Date.now() * 0.005) * 0.04 : 0));
+            ctx.translate(-width / 2, -height / 2);
+
+            // 1. Draw Sky Gradient according to Phase
+            let skyGradient = ctx.createLinearGradient(0, 0, 0, height * 0.55);
+            if (phase === 0) {
+                skyGradient.addColorStop(0, '#38bdf8'); // Clear Blue
+                skyGradient.addColorStop(1, '#e0f2fe');
+            } else if (phase === 1) {
+                skyGradient.addColorStop(0, '#64748b'); // Shifting Clouds
+                skyGradient.addColorStop(1, '#cbd5e1');
+            } else if (phase === 2) {
+                skyGradient.addColorStop(0, '#334155'); // Darkening Storm
+                skyGradient.addColorStop(1, '#64748b');
+            } else {
+                skyGradient.addColorStop(0, '#0f172a'); // Severe Hurricane
+                skyGradient.addColorStop(1, '#1e293b');
+            }
+            ctx.fillStyle = skyGradient;
+            ctx.fillRect(0, 0, width, height * 0.55);
+
+            // 2. Draw Sun / Clouds / Lightning
+            if (phase === 0) {
+                // Sun
+                ctx.beginPath();
+                ctx.arc(width * 0.75, height * 0.2, 35, 0, Math.PI * 2);
+                ctx.fillStyle = '#fef08a';
+                ctx.shadowColor = '#fde047';
+                ctx.shadowBlur = 20;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            } else if (phase === 3 && Math.random() < 0.04) {
+                // Lightning Flash
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                ctx.fillRect(0, 0, width, height * 0.55);
+            }
+
+            // 3. Draw Ocean Waves with Whitecaps
+            let seaGradient = ctx.createLinearGradient(0, height * 0.55, 0, height);
+            if (phase === 0) {
+                seaGradient.addColorStop(0, '#0284c7');
+                seaGradient.addColorStop(1, '#075985');
+            } else if (phase === 1) {
+                seaGradient.addColorStop(0, '#0369a1');
+                seaGradient.addColorStop(1, '#0c4a6e');
+            } else {
+                seaGradient.addColorStop(0, '#1e293b');
+                seaGradient.addColorStop(1, '#0f172a');
+            }
+            ctx.fillStyle = seaGradient;
+            ctx.fillRect(0, height * 0.55, width, height * 0.45);
+
+            // Wave Sinusoidal Motion
+            waveOffset += (phase === 0 ? 0.03 : phase === 1 ? 0.06 : 0.12);
+            ctx.beginPath();
+            ctx.moveTo(0, height * 0.55);
+            for (let x = 0; x <= width; x += 20) {
+                let waveY = Math.sin(x * 0.015 + waveOffset) * (phase === 0 ? 6 : phase === 1 ? 12 : 24) + height * 0.55;
+                ctx.lineTo(x, waveY);
+            }
+            ctx.lineTo(width, height);
+            ctx.lineTo(0, height);
+            ctx.fillStyle = seaGradient;
+            ctx.fill();
+
+            // Whitecaps in storm / hurricane
+            if (phase >= 2) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                for (let x = 10; x < width; x += 40) {
+                    let capY = Math.sin(x * 0.015 + waveOffset) * 20 + height * 0.55;
+                    ctx.moveTo(x, capY);
+                    ctx.lineTo(x + 15, capY - 3);
+                }
+                ctx.stroke();
+            }
+
+            // Rain overlay for low press / hurricane
+            if (phase >= 2) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                rainParticles.forEach(p => {
+                    p.y += p.speed;
+                    p.x -= 2;
+                    if (p.y > height) {
+                        p.y = -20;
+                        p.x = Math.random() * width;
+                    }
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p.x - 5, p.y + p.length);
+                });
+                ctx.stroke();
+            }
+
+            // 4. Safe Harbor Waypoint Indicator
+            if (phase >= 2) {
+                const wpX = width * 0.2;
+                const wpY = height * 0.45;
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(wpX, wpY, 8, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = '#fef3c7';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(wpX, wpY, 14 + Math.sin(Date.now() * 0.008) * 4, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 10px sans-serif';
+                ctx.fillText('SAFE HARBOR WAYPOINT', wpX + 18, wpY + 4);
+            }
+
+            // 5. Sailboat Cockpit Frame Overlay (Railing / Horizon Ring)
+            ctx.strokeStyle = 'rgba(226, 232, 240, 0.3)';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.arc(width / 2, height * 1.3, height * 0.9, Math.PI, 0, false);
+            ctx.stroke();
+
+            ctx.restore(); // Restore angle transform
+
+            animationFrameId = requestAnimationFrame(drawCockpit);
+        }
+
+        // --- 3. WEATHER PHASE SWITCHER FUNCTION ---
+        function setWeatherPhase(index) {
+            currentWeatherPhase = index;
+            const data = phaseData[index];
+
+            // Update Phase Buttons Styling
+            document.querySelectorAll('.weather-btn').forEach((btn, i) => {
+                if (i === index) {
+                    btn.className = "weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-tealAccent text-white border-tealAccent shadow-sm";
+                } else {
+                    btn.className = "weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100";
+                }
+            });
+
+            // Update HUD overlays
+            document.getElementById('hudRegimeText').innerText = data.name;
+            document.getElementById('hudSubText').innerText = data.sub;
+            document.getElementById('hudTiltText').innerText = data.tilt;
+
+            const safeHarborHUD = document.getElementById('safeHarborHUD');
+            if (data.safeHarbor) {
+                safeHarborHUD.classList.remove('hidden');
+            } else {
+                safeHarborHUD.classList.add('hidden');
+            }
+
+            // Rotate Physical Brass Barometer Needle
+            const barometerNeedle = document.getElementById('barometerNeedle');
+            if (barometerNeedle) {
+                barometerNeedle.style.transform = `rotate(${data.angle}deg)`;
+            }
+
+            // Update Compass HUD text
+            document.getElementById('gaugeVectorText').innerText = data.vector;
+
+            // Update 3 Dynamic Live Action Cards
+            document.getElementById('card1Action').innerText = data.card1;
+            document.getElementById('card2Action').innerText = data.card2;
+            document.getElementById('card3Action').innerText = data.card3;
+        }
+
+        // --- 4. DRAWDOWN & COMPOUNDING SIMULATOR LOGIC ---
+        const sliderPortfolio = document.getElementById('sliderPortfolio');
+        const sliderHorizon = document.getElementById('sliderHorizon');
+        const sliderCrash = document.getElementById('sliderCrash');
+        const chartCanvas = document.getElementById('chartCanvas');
+        const chartCtx = chartCanvas ? chartCanvas.getContext('2d') : null;
+
+        function updateSimulator() {
+            const P = parseFloat(sliderPortfolio.value);
+            const N = parseInt(sliderHorizon.value);
+            const crashPct = parseInt(sliderCrash.value) / 100;
+
+            // Update Slider Text Labels
+            document.getElementById('valPortfolio').innerText = '$' + P.toLocaleString();
+            document.getElementById('valHorizon').innerText = N + ' Years';
+            document.getElementById('valCrash').innerText = '-' + (crashPct * 100) + '%';
+
+            // Asymmetric Loss Break-Even Math Calculation
+            const breakEvenGain = ((1 / (1 - crashPct)) - 1) * 100;
+            document.getElementById('mathCrashPct').innerText = '-' + (crashPct * 100) + '%';
+            document.getElementById('mathRecoveryPct').innerText = '+' + breakEvenGain.toFixed(1) + '%';
+
+            // Calculate 3-Cycle Trajectories
+            // Unprotected Buy & Hold: Growth 8%/yr with 3 major crashes
+            // Barometer Protected: Avoids 80% of crash drawdowns + earns 4% cash yield in storm
+            let unprotectedPoints = [];
+            let protectedPoints = [];
+
+            let unprotCurrent = P;
+            let protCurrent = P;
+
+            unprotectedPoints.push(unprotCurrent);
+            protectedPoints.push(protCurrent);
+
+            for (let year = 1; year <= N; year++) {
+                // Trigger crashes at cycle years (e.g., year 5, 11, 17)
+                const isCrashYear = (year % 6 === 0);
+
+                if (isCrashYear) {
+                    unprotCurrent = unprotCurrent * (1 - crashPct);
+                    protCurrent = protCurrent * 0.96; // Reefed sails: minimal 4% drop
+                } else {
+                    unprotCurrent = unprotCurrent * 1.08; // Bull growth
+                    protCurrent = protCurrent * 1.08;
+                }
+
+                unprotectedPoints.push(unprotCurrent);
+                protectedPoints.push(protCurrent);
+            }
+
+            // Update Summary Text
+            const finalUnprotected = unprotectedPoints[unprotectedPoints.length - 1];
+            const finalProtected = protectedPoints[protectedPoints.length - 1];
+
+            document.getElementById('resUnprotected').innerText = '$' + Math.round(finalUnprotected).toLocaleString();
+            document.getElementById('resProtected').innerText = '$' + Math.round(finalProtected).toLocaleString();
+
+            // Draw Dynamic Canvas Chart
+            drawChart(unprotectedPoints, protectedPoints, N);
+        }
+
+        function drawChart(unprotected, protectedData, years) {
+            if (!chartCtx || !chartCanvas) return;
+            chartCanvas.width = chartCanvas.parentElement.clientWidth;
+            chartCanvas.height = chartCanvas.parentElement.clientHeight;
+
+            const w = chartCanvas.width;
+            const h = chartCanvas.height;
+
+            chartCtx.clearRect(0, 0, w, h);
+
+            const padding = 40;
+            const maxVal = Math.max(...unprotected, ...protectedData) * 1.1;
+
+            // Helper scale functions
+            const getX = (idx) => padding + (idx / years) * (w - padding * 2);
+            const getY = (val) => h - padding - (val / maxVal) * (h - padding * 2);
+
+            // Draw Grid Lines
+            chartCtx.strokeStyle = '#e2e8f0';
+            chartCtx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                let y = padding + (i / 4) * (h - padding * 2);
+                chartCtx.beginPath();
+                chartCtx.moveTo(padding, y);
+                chartCtx.lineTo(w - padding, y);
+                chartCtx.stroke();
+            }
+
+            // Unprotected Line (Slate Gray)
+            chartCtx.strokeStyle = '#94a3b8';
+            chartCtx.lineWidth = 3;
+            chartCtx.beginPath();
+            unprotected.forEach((val, i) => {
+                if (i === 0) chartCtx.moveTo(getX(i), getY(val));
+                else chartCtx.lineTo(getX(i), getY(val));
+            });
+            chartCtx.stroke();
+
+            // Barometer Protected Line (Teal Accent)
+            chartCtx.strokeStyle = '#0d9488';
+            chartCtx.lineWidth = 4;
+            chartCtx.beginPath();
+            protectedData.forEach((val, i) => {
+                if (i === 0) chartCtx.moveTo(getX(i), getY(val));
+                else chartCtx.lineTo(getX(i), getY(val));
+            });
+            chartCtx.stroke();
+        }
+
+        if (sliderPortfolio && sliderHorizon && sliderCrash) {
+            sliderPortfolio.addEventListener('input', updateSimulator);
+            sliderHorizon.addEventListener('input', updateSimulator);
+            sliderCrash.addEventListener('input', updateSimulator);
+        }
+
+        // --- 5. PRICING TOGGLE LOGIC ---
+        function setBilling(type) {
+            currentBilling = type;
+            const btnMonthly = document.getElementById('toggleMonthly');
+            const btnAnnual = document.getElementById('toggleAnnual');
+            const priceText = document.getElementById('proPriceText');
+            const periodText = document.getElementById('proPeriodText');
+            const subtext = document.getElementById('proBillingSubtext');
+
+            if (type === 'annual') {
+                btnAnnual.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all bg-tealAccent text-white";
+                btnMonthly.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-nordic-text hover:text-nordic-heading";
+                priceText.innerText = "€20";
+                periodText.innerText = "/ month";
+                subtext.innerText = "Billed annually (€240/yr - Save 2 Months Free). VAT included.";
+            } else {
+                btnMonthly.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all bg-tealAccent text-white";
+                btnAnnual.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-nordic-text hover:text-nordic-heading";
+                priceText.innerText = "€24";
+                periodText.innerText = "/ month";
+                subtext.innerText = "Billed monthly. Cancel anytime. VAT included.";
+            }
+        }
+
+        // --- 6. FAQ ACCORDION TOGGLE ---
+        function toggleFAQ(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.innerText = '−';
+            } else {
+                content.classList.add('hidden');
+                icon.innerText = '+';
+            }
+        }
+
+        // --- 7. MODAL CONTROLS & HANDLERS ---
+        function openModal(mode) {
+            const overlay = document.getElementById('modalOverlay');
+            const title = document.getElementById('modalTitle');
+            const sub = document.getElementById('modalSub');
+            const btn = document.getElementById('modalSubmitBtn');
+
+            overlay.classList.remove('hidden');
+
+            if (mode === 'stripe') {
+                title.innerText = "Upgrade to Pro Captain";
+                sub.innerText = "Instant real-time barometer radar signals & portfolio X-Ray lookups.";
+                btn.innerText = "Proceed to Secure Stripe Checkout";
+            } else if (mode === 'signup-free') {
+                title.innerText = "Join Free Crew";
+                sub.innerText = "Get delayed weekly barometer updates directly to your inbox.";
+                btn.innerText = "Create Free Account";
+            } else {
+                title.innerText = "Access WTC Cockpit";
+                sub.innerText = "Enter your credentials to launch your financial weather dashboard.";
+                btn.innerText = "Sign In & Launch Cockpit";
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.add('hidden');
+        }
+
+        function handleModalSubmit(e) {
+            e.preventDefault();
+            alert("Thank you! Redirecting to Wealth Trend Compass Cockpit dashboard...");
+            closeModal();
+            window.location.href = "https://wealth-trend-compass.streamlit.app";
+        }
+
+        // --- 8. INITIALIZATION ON WINDOW LOAD ---
+        window.onload = function () {
+            // Start Canvas Cockpit Animation Loop
+            drawCockpit();
+
+            // Initialize Drawdown Simulator
+            updateSimulator();
+
+            // Initialize Phase 0 (High Pressure)
+            setWeatherPhase(0);
+        };
+    </script>
+  // Kobler "Launch Cockpit" og "Free Crew" knapperne direkte til dit live Streamlit Cockpit
+  document.querySelectorAll('a[href="#cockpit-preview"], button').forEach(el => {
+    if (el.textContent.includes('Launch Cockpit') || el.textContent.includes('Launch Free Crew')) {
+      el.onclick = () => window.open('https://wealth-trend-compass.streamlit.app/', '_blank');
+    }
+  });
+</script>
+</body>
+</html>
