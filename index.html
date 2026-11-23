@@ -726,8 +726,7 @@
                         Launch Free Crew Cockpit
                     </a>
                 </div>
-
-                <!-- Pro Captain Tier -->
+<!-- Pro Captain Tier -->
                 <div class="bg-white rounded-3xl p-8 border-2 border-tealAccent shadow-xl relative flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-tealAccent text-white text-[10px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-bl-2xl">
                         FULL TELEMETRY ACCESS
@@ -742,7 +741,7 @@
                         </div>
                         <span id="proBillingSubtext" class="text-[11px] text-slate-400 block mb-6">Billed monthly. Cancel anytime. VAT included.</span>
 
-                        <ul class="space-y-3 text-xs text-nordic-text mb-8">
+                        <ul class="space-y-3 text-xs text-nordic-text mb-6">
                             <li class="flex items-center gap-2">
                                 <span class="text-tealAccent font-bold">✓</span>
                                 <span>Live Friday 2-Minute Cockpit Barometer Telemetry</span>
@@ -760,12 +759,57 @@
                                 <span>Chandelier Floor, +2.0 ATR Ceiling &amp; Whale OBV Charts</span>
                             </li>
                         </ul>
+
+                        <!-- Mandatory Legal & EU 14-Day Right of Withdrawal Waiver Checkbox -->
+                        <label class="flex items-start gap-2.5 text-[11px] text-nordic-text bg-slate-50 p-3 rounded-xl border border-slate-200 mb-4 cursor-pointer">
+                            <input type="checkbox" id="terms-consent-checkbox"
+                                   onchange="
+                                     const btn = document.getElementById('stripe-checkout-btn');
+                                     btn.style.opacity = this.checked ? '1' : '0.4';
+                                     btn.style.pointerEvents = this.checked ? 'auto' : 'none';
+                                   "
+                                   class="mt-0.5 cursor-pointer accent-tealAccent" />
+                            <span>
+                                I confirm that Wealth Trend Compass provides <strong>non-personalized macroeconomic telemetry only</strong> (no investment advice). I consent to immediate digital access and <strong>waive my 14-day EU right of withdrawal</strong> (no refunds).
+                            </span>
+                        </label>
                     </div>
-                    <button onclick="openModal('stripe')" class="w-full py-3.5 rounded-xl bg-tealAccent hover:bg-tealAccent-hover text-white font-bold text-sm shadow-md shadow-tealAccent/20 transition-all">
-                        Get Pro Radar Access
-                    </button>
+
+                    <a id="stripe-checkout-btn"
+                       href="https://buy.stripe.com/3cI6oz8pFaZ0gnScxeaVa00"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       style="opacity: 0.4; pointer-events: none;"
+                       class="block text-center w-full py-3.5 rounded-xl bg-tealAccent hover:bg-tealAccent-hover text-white font-bold text-sm shadow-md shadow-tealAccent/20 transition-all">
+                        Subscribe Monthly — €24 / month
+                    </a>
+
+                    <script>
+                    (function() {
+                        const priceEl = document.getElementById('proPriceText');
+                        const btnEl = document.getElementById('stripe-checkout-btn');
+                        const btnMonthlyToggle = document.getElementById('toggleMonthly');
+                        const btnAnnualToggle = document.getElementById('toggleAnnual');
+
+                        function syncStripeButton() {
+                            if (!priceEl || !btnEl) return;
+                            const isAnnual = priceEl.textContent.trim().includes('20');
+                            if (isAnnual) {
+                                btnEl.href = 'https://buy.stripe.com/6oU14f8pFfg4gnS7cUaVa01';
+                                btnEl.textContent = 'Subscribe Annually — €240 / year (2 Months Free)';
+                            } else {
+                                btnEl.href = 'https://buy.stripe.com/3cI6oz8pFaZ0gnScxeaVa00';
+                                btnEl.textContent = 'Subscribe Monthly — €24 / month';
+                            }
+                        }
+
+                        if (btnMonthlyToggle) btnMonthlyToggle.addEventListener('click', () => setTimeout(syncStripeButton, 10));
+                        if (btnAnnualToggle) btnAnnualToggle.addEventListener('click', () => setTimeout(syncStripeButton, 10));
+                    })();
+                    </script>
                 </div>
             </div>
+                
 
             <!-- Interactive Basis-Point Perspective Box -->
             <div class="max-w-3xl mx-auto bg-white rounded-2xl p-6 border border-amberBrass/30 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
