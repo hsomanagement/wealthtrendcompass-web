@@ -1452,6 +1452,35 @@
                 `
             }
         };
+
+        function openLegalModal(type) {
+            const modal = document.getElementById('legalModalOverlay');
+            const title = document.getElementById('legalModalTitle');
+            const content = document.getElementById('legalModalContent');
+            if (modal && legalTexts[type]) {
+                title.innerText = legalTexts[type].title;
+                content.innerHTML = legalTexts[type].html;
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeLegalModal() {
+            const modal = document.getElementById('legalModalOverlay');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        // --- 9. INITIALIZE ANIMATION & SIMULATOR ON PAGE LOAD ---
+        window.addEventListener('load', () => {
+            resizeCockpitCanvas();
+            drawCockpit();
+            setWeatherPhase(0);
+            if (typeof updateSimulator === 'function' && sliderPortfolio) {
+                updateSimulator();
+            }
+        });
+        // Start immediately as fallback if DOM is already loaded
+        resizeCockpitCanvas();
+        drawCockpit();
     </script>
 </body>
 </html>
