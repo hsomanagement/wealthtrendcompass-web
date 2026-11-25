@@ -15,14 +15,33 @@
     <meta property="og:description" content="A calm 2-minute Friday check for pensions, ETFs, and life savings. Start your 14-day free Pro Captain trial — no credit card required.">
     <meta property="og:site_name" content="Wealth Trend Compass">
 
-    <!-- Google Tag Manager / GA4 Placeholder (Insert your GTM ID here when ready) -->
-    <!--
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <!-- Google Tag Manager (GTM-T8B94NW4) + Automatic Conversion Click Tracker -->
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
-    -->
+    })(window,document,'script','dataLayer','GTM-T8B94NW4');
+
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a, button');
+        if (!link) return;
+        const href = link.getAttribute('href') || '';
+        if (href.includes('wealth-trend-compass.streamlit.app')) {
+            window.dataLayer.push({
+                'event': 'start_trial_click',
+                'cta_location': href.split('utm_source=')[1] || 'landing_page'
+            });
+        } else if (href.includes('buy.stripe.com')) {
+            window.dataLayer.push({
+                'event': 'begin_stripe_checkout',
+                'plan_url': href
+            });
+        }
+    });
+    </script>
+    <!-- End Google Tag Manager -->
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
