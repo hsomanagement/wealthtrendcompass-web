@@ -7,15 +7,17 @@
     <meta name="description" content="Weekly macroeconomic risk barometer and sector rotation compass (US &amp; EU UCITS). Measure credit spreads, market breadth, and Chandelier Exit floors in 2 minutes every Friday. Start your 14-day free Pro trial with no credit card required.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://wealthtrendcompass.com/">
+    <link rel="icon" type="image/jpeg" href="WTC_icon_500.jpg">
 
     <!-- Open Graph / LinkedIn / Social Sharing Metadata -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://wealthtrendcompass.com/">
     <meta property="og:title" content="Wealth Trend Compass | Measure the Financial Air Pressure Before the Storm">
     <meta property="og:description" content="A calm 2-minute Friday check for pensions, ETFs, and life savings. Start your 14-day free Pro Captain trial — no credit card required.">
+    <meta property="og:image" content="https://wealthtrendcompass.com/WTC_logo_final.jpg">
     <meta property="og:site_name" content="Wealth Trend Compass">
 
-    <!-- Google Tag Manager (GTM-T8B94NW4) + Automatic Conversion Click Tracker -->
+    <!-- Google Tag Manager (GTM-T8B94NW4) + Automatic Source Attribution Forwarder -->
     <script>
     window.dataLayer = window.dataLayer || [];
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -23,6 +25,25 @@
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-T8B94NW4');
+
+    // Capture incoming ?ref= or ?utm_source= and forward automatically to Cockpit & Stripe links
+    window.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const refSource = params.get('ref') || params.get('utm_source') || params.get('source');
+        if (refSource) {
+            const cleanRef = refSource.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 40);
+            document.querySelectorAll('a[href*="wealth-trend-compass.streamlit.app"]').forEach(function(a) {
+                const url = new URL(a.href);
+                url.searchParams.set('ref', cleanRef);
+                a.href = url.toString();
+            });
+            document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a) {
+                const url = new URL(a.href);
+                url.searchParams.set('client_reference_id', cleanRef);
+                a.href = url.toString();
+            });
+        }
+    });
 
     document.addEventListener('click', function(e) {
         const link = e.target.closest('a, button');
@@ -61,7 +82,7 @@
                             section: '#F1F5F4',
                             border: '#E2E8F0',
                             text: '#475569',
-                            heading: '#1E293B'
+                            heading: '#0F202D'
                         },
                         tealAccent: {
                             DEFAULT: '#0D9488',
@@ -69,7 +90,7 @@
                             light: '#CCFBF1'
                         },
                         amberBrass: {
-                            DEFAULT: '#D97706',
+                            DEFAULT: '#C59B43',
                             light: '#FEF3C7'
                         },
                         coralAlert: {
@@ -94,10 +115,9 @@
         h1, h2, h3, .font-heading {
             font-family: 'Fraunces', serif;
         }
-        /* Custom Brass Dial Styling */
         .brass-bezel {
-            background: radial-gradient(circle at 30% 30%, #fef3c7, #d97706 60%, #78350f 100%);
-            box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+            background: radial-gradient(circle at 30% 30%, #fef3c7, #C59B43 60%, #78350f 100%);
+            box-shadow: 0 10px 25px -5px rgba(197, 155, 67, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.8);
         }
         .dial-face {
             background: radial-gradient(circle, #ffffff 0%, #faf8f5 100%);
@@ -110,36 +130,31 @@
 </head>
 <body class="antialiased selection:bg-tealAccent-light selection:text-tealAccent-hover">
 
-<!-- Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8B94NW4"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
     <!-- TOP NAVIGATION BAR -->
-    <header class="sticky top-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-slate-200/80">
+    <header class="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-b-2 border-[#C59B43]/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-tealAccent flex items-center justify-center text-white shadow-md shadow-tealAccent/20 group-hover:scale-105 transition-transform">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="9" stroke-width="2" />
-                        <polygon points="12 6 15 12 12 18 9 12" fill="currentColor" />
-                    </svg>
-                </div>
+                <img src="WTC_icon_500.jpg" alt="Wealth Trend Compass Icon" class="w-11 h-11 rounded-full shadow-md group-hover:scale-105 transition-transform object-cover" />
                 <div>
-                    <span class="font-heading text-xl font-bold text-nordic-heading block leading-tight">Wealth Trend Compass</span>
-                    <span class="text-xs font-semibold text-tealAccent tracking-wider uppercase">Financial Weather Intelligence</span>
+                    <span class="font-heading text-xl font-bold text-[#0F202D] block leading-tight">WealthTrendCompass</span>
+                    <span class="text-[11px] font-bold text-[#C59B43] tracking-wider uppercase">Pro Captain Cockpit &bull; Market Regime Brief</span>
                 </div>
             </a>
 
             <!-- Desktop Nav Links -->
-            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-nordic-text">
+            <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-nordic-text">
                 <a href="#how-it-works" class="hover:text-tealAccent transition-colors">How It Works</a>
+                <a href="#latest-brief" class="hover:text-tealAccent transition-colors font-semibold text-[#0F202D]">Weekly Regime Log</a>
                 <a href="#mandate-trap" class="hover:text-tealAccent transition-colors">The Mandate Trap</a>
                 <a href="#instruments" class="hover:text-tealAccent transition-colors">Core Instruments</a>
                 <a href="#simulator" class="hover:text-tealAccent transition-colors">Crash Simulator</a>
                 <a href="#pricing" class="hover:text-tealAccent transition-colors">Pricing</a>
-                <a href="#faq" class="hover:text-tealAccent transition-colors">FAQ</a>
+                <a href="insights.html" class="text-tealAccent font-bold hover:underline">Full Track Record &rarr;</a>
             </nav>
 
             <!-- Actions -->
@@ -147,9 +162,9 @@
                 <button onclick="openModal('signin')" class="text-sm font-semibold text-nordic-heading hover:text-tealAccent px-3 py-2 rounded-lg transition-colors">
                     Sign In
                 </button>
-                <a href="https://wealth-trend-compass.streamlit.app/?utm_source=landing_nav" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-tealAccent hover:bg-tealAccent-hover text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-md shadow-tealAccent/20 transition-all transform hover:-translate-y-0.5">
+                <a href="https://wealth-trend-compass.streamlit.app/?utm_source=landing_nav" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-[#0F202D] hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl font-semibold text-sm border border-[#C59B43] shadow-md transition-all transform hover:-translate-y-0.5">
                     <span>Start 14-Day Free Trial</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 text-[#C59B43]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </a>
@@ -160,8 +175,8 @@
     <!-- HERO SECTION WITH MARITIME COCKPIT SIMULATOR -->
     <section class="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="text-center max-w-3xl mx-auto mb-10">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amberBrass-light text-amberBrass text-xs font-bold uppercase tracking-wider mb-4 border border-amberBrass/20">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amberBrass-light text-amber-900 text-xs font-bold uppercase tracking-wider mb-4 border border-amberBrass/30">
+                <svg class="w-4 h-4 text-amber-700" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
                 </svg>
                 Regime Shift Telemetry &bull; 14-Day Free Pro Trial
@@ -175,14 +190,14 @@
 
             <!-- Primary Hero CTA Block (14-Day No Credit Card Trial) -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-3">
-                <a href="https://wealth-trend-compass.streamlit.app/?utm_source=landing_hero" target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-tealAccent hover:bg-tealAccent-hover text-white px-7 py-4 rounded-2xl font-bold text-base shadow-lg shadow-tealAccent/25 transition-all transform hover:-translate-y-0.5">
+                <a href="https://wealth-trend-compass.streamlit.app/?utm_source=landing_hero" target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#0F202D] hover:bg-slate-800 text-white px-7 py-4 rounded-2xl font-bold text-base border-2 border-[#C59B43] shadow-lg transition-all transform hover:-translate-y-0.5">
                     <span>🚀 Start 14-Day Free Pro Trial (No Credit Card)</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-[#C59B43]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </a>
-                <a href="#pricing" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-4 rounded-2xl border border-slate-300 bg-white hover:bg-slate-50 text-nordic-heading font-bold text-sm transition-colors">
-                    View Plans &amp; Free Crew
+                <a href="insights.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-4 rounded-2xl border border-slate-300 bg-white hover:bg-slate-50 text-nordic-heading font-bold text-sm transition-colors">
+                    📜 View Weekly Regime Track Record
                 </a>
             </div>
             <p class="text-xs text-slate-500 font-medium">
@@ -254,20 +269,17 @@
                         <span class="text-xs font-bold text-nordic-heading uppercase tracking-wider block mb-3">Atmospheric Risk Barometer</span>
                         <div class="relative w-44 h-44 mx-auto rounded-full brass-bezel p-3 flex items-center justify-center">
                             <div class="w-full h-full rounded-full dial-face relative flex items-center justify-center p-2">
-                                <!-- Dial Labels -->
                                 <span class="absolute top-3 text-[9px] font-bold text-emerald-700 tracking-tighter">HIGH PRESS</span>
                                 <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-amber-600">SHIFTING</span>
                                 <span class="absolute bottom-3 text-[9px] font-bold text-orange-600">STORMY</span>
                                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-rose-600">HURRICANE</span>
 
-                                <!-- Dial Center Cap & Needle -->
                                 <div class="relative w-full h-full flex items-center justify-center">
-                                    <!-- Needle SVG -->
                                     <div id="barometerNeedle" class="absolute w-full h-full flex items-center justify-center needle-transition" style="transform: rotate(45deg);">
                                         <svg class="w-full h-full" viewBox="0 0 100 100">
                                             <polygon points="50,15 46,50 54,50" fill="#E11D48" />
                                             <polygon points="50,85 47,50 53,50" fill="#475569" />
-                                            <circle cx="50" cy="50" r="4" fill="#D97706" />
+                                            <circle cx="50" cy="50" r="4" fill="#C59B43" />
                                         </svg>
                                     </div>
                                     <div class="w-4 h-4 rounded-full bg-amberBrass shadow-sm border-2 border-white z-10"></div>
@@ -291,9 +303,8 @@
                 </div>
             </div>
 
-            <!-- 3 Dynamic Illustrative Regime Posture Cards (MiFID II / SEC Compliant) -->
+            <!-- 3 Dynamic Illustrative Regime Posture Cards -->
             <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1: Workplace Pensions & 401(k) / IRA -->
                 <div class="bg-nordic-bg rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3">
@@ -313,7 +324,6 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Robo-Advisors & Target-Risk Funds -->
                 <div class="bg-nordic-bg rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3">
@@ -333,7 +343,6 @@
                     </div>
                 </div>
 
-                <!-- Card 3: Self-Directed ETF Accounts -->
                 <div class="bg-nordic-bg rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3">
@@ -351,6 +360,58 @@
                             Broad Equity Index Proxies (e.g., SPY / SXR8.DE as benchmarks)
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO-INDEXED LATEST WEEKLY MARKET REGIME BRIEF (FRONT PAGE TEASER + TRACK RECORD LINK) -->
+    <section id="latest-brief" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="bg-white rounded-3xl p-8 lg:p-10 border-2 border-[#C59B43] shadow-lg">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-100">
+                <div>
+                    <span class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-2">
+                        Latest Friday Close Telemetry &bull; Verified Track Record
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#0F202D]">
+                        Friday Market Regime Brief: 🌧️ STORMY WEATHER (DEFENSIVE — 1 of 3 Sensors Green)
+                    </h2>
+                </div>
+                <a href="insights.html" class="inline-flex items-center gap-2 text-sm font-bold text-tealAccent hover:underline shrink-0">
+                    <span>View Full Historical Regime Archive &rarr;</span>
+                </a>
+            </div>
+
+            <p class="text-sm sm:text-base text-nordic-text leading-relaxed mb-6">
+                In high-precision acoustics and frequency simulation, one rule dictates everything: <strong>Never confuse daily background noise with the structural carrier wave.</strong> At this week&rsquo;s 1W market close, two of our three institutional precursor sensors indicate risk contraction and elevated drawdown probability, shifting the illustrative navigation vector to <strong>30% Defensive Equity / 70% Safe Harbor Cash Proxies</strong>.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-[#FAF8F5] p-4 rounded-2xl border border-slate-200">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">1. Corporate Credit Flow (HYG/IEF)</span>
+                    <span class="text-xs sm:text-sm font-bold text-amber-700">🟠 Credit Cooling Off (Early shift toward safe bonds)</span>
+                </div>
+                <div class="bg-[#FAF8F5] p-4 rounded-2xl border border-slate-200">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">2. Sector Breadth (&gt; 20W EMA)</span>
+                    <span class="text-xs sm:text-sm font-bold text-rose-700">🔴 Narrowing Breadth (Below 55% participation threshold)</span>
+                </div>
+                <div class="bg-[#FAF8F5] p-4 rounded-2xl border border-slate-200">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">3. Volatility Structure (VIX / VIX3M)</span>
+                    <span class="text-xs sm:text-sm font-bold text-[#0F202D]">🟢 Contango / Monitored Weekly at Friday Close</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-100">
+                <p class="text-xs text-slate-500">
+                    Remember <strong>The Mandate Trap</strong>: Traditional pension funds remain legally bound to stay invested in equities even when atmospheric pressure drops.
+                </p>
+                <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <a href="insights.html" class="px-5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-[#0F202D] font-bold text-xs transition-colors">
+                        📜 Read Full Insights Archive
+                    </a>
+                    <a href="https://wealth-trend-compass.streamlit.app/?utm_source=landing_latest_brief" target="_blank" rel="noopener" class="px-5 py-2.5 rounded-xl bg-[#0F202D] hover:bg-slate-800 text-white font-bold text-xs border border-[#C59B43] transition-colors">
+                        🧭 Inspect All 40+ Proxies in Live Cockpit &rarr;
+                    </a>
                 </div>
             </div>
         </div>
@@ -405,7 +466,7 @@
                     </div>
                 </div>
 
-                <!-- Your Personal Speedboat (MiFID II / SEC Compliant Framing) -->
+                <!-- Your Personal Speedboat -->
                 <div class="bg-white rounded-3xl p-8 border-2 border-tealAccent shadow-lg relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-tealAccent text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl">
                         30-SECOND REGIME CHECK
@@ -456,11 +517,10 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Instrument 1: Risk Barometer -->
             <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-amberBrass-light flex items-center justify-center text-amberBrass font-bold">
+                        <div class="w-10 h-10 rounded-xl bg-amberBrass-light flex items-center justify-center text-amber-900 font-bold">
                             01
                         </div>
                         <div>
@@ -499,7 +559,6 @@
                 </div>
             </div>
 
-            <!-- Instrument 2: Sector & Geography Compass -->
             <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
                     <div class="flex items-center gap-3 mb-6">
@@ -558,13 +617,11 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                <!-- Sliders Panel (5 Cols) -->
                 <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
                     <h3 class="font-heading text-xl font-bold text-nordic-heading pb-4 border-b border-slate-100">
                         Hypothetical Parameters
                     </h3>
 
-                    <!-- Slider 1: Portfolio Value -->
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <label for="sliderPortfolio" class="text-xs font-bold text-nordic-heading uppercase">Starting Capital</label>
@@ -577,7 +634,6 @@
                         </div>
                     </div>
 
-                    <!-- Slider 2: Time Horizon -->
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <label for="sliderHorizon" class="text-xs font-bold text-nordic-heading uppercase">Time Horizon</label>
@@ -590,7 +646,6 @@
                         </div>
                     </div>
 
-                    <!-- Slider 3: Crash Severity -->
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <label for="sliderCrash" class="text-xs font-bold text-nordic-heading uppercase">Hypothetical Crash Severity</label>
@@ -603,7 +658,6 @@
                         </div>
                     </div>
 
-                    <!-- Live Break-Even Math Callout -->
                     <div class="bg-amber-50 rounded-2xl p-4 border border-amber-200/80">
                         <span class="text-[10px] font-bold text-amber-800 uppercase block mb-1">The Asymmetric Loss Math</span>
                         <div class="text-xs text-amber-900 leading-relaxed">
@@ -613,7 +667,6 @@
                     </div>
                 </div>
 
-                <!-- Simulation Output & Canvas Line Chart (7 Cols) -->
                 <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col justify-between min-h-[460px]">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                         <div>
@@ -632,12 +685,10 @@
                         </div>
                     </div>
 
-                    <!-- Canvas Line Chart -->
                     <div class="relative w-full h-64 sm:h-72 bg-slate-50 rounded-2xl p-4 border border-slate-100">
                         <canvas id="chartCanvas" class="w-full h-full"></canvas>
                     </div>
 
-                    <!-- Results Summary Grid -->
                     <div class="mt-6 grid grid-cols-2 gap-4">
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/60">
                             <span class="text-[10px] font-bold text-slate-400 uppercase block">Static Buy &amp; Hold Model</span>
@@ -651,85 +702,9 @@
                 </div>
             </div>
 
-            <!-- CFTC Rule 4.41 / SEC Hypothetical Performance Disclaimer Box -->
             <div class="mt-6 bg-white/80 rounded-2xl p-4 sm:p-5 border border-slate-200/90 text-[11px] text-slate-500 leading-relaxed">
                 <strong class="text-slate-700">Hypothetical Performance Disclaimer (CFTC Rule 4.41 / SEC Standard):</strong>
-                The results shown in the Crash Simulator are hypothetical and generated by applying mathematical drawdown assumptions to illustrative market cycles. Hypothetical or simulated performance results have certain inherent limitations. Unlike an actual performance record, simulated results do not represent actual trading. Also, since the trades have not actually been executed, the results may have under- or over-compensated for the impact, if any, of certain market factors, such as lack of liquidity, execution delays, slippage, transaction costs, management fees, and taxes. Simulated trading programs in general are also subject to the fact that they are designed with the benefit of hindsight. No representation is being made that any investor or account will or is likely to achieve results, profits, or drawdown protection similar to those shown.
-            </div>
-        </div>
-    </section>
-
-    <!-- AUTHENTIC HERITAGE & INVESTOR PROFILES -->
-    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Founder Story -->
-        <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm mb-16">
-            <div class="max-w-3xl">
-                <span class="text-xs font-bold text-amberBrass uppercase tracking-wider block mb-2">Empirical Roots</span>
-                <h2 class="text-3xl font-bold text-nordic-heading mb-4">
-                    The Founder's Framework (Developed &amp; Refined Since 2008)
-                </h2>
-                <p class="text-nordic-text text-base leading-relaxed mb-4">
-                    Wealth Trend Compass was born out of real-world necessity following the Great Financial Crisis of 2008. Watching years of hard-earned family savings suffer severe drawdowns sparked a systematic research effort into institutional regime indicators that measure elevated macroeconomic stress before deep market contractions unfold.
-                </p>
-                <p class="text-nordic-text text-base leading-relaxed">
-                    By combining macroeconomic credit spread ratios, options market volatility term structure, and sector breadth telemetry, this quantitative observation framework was built to monitor major market cycles objectively. Today, it brings calm, institutional-grade telemetry directly to self-directed investors worldwide.
-                </p>
-            </div>
-        </div>
-
-        <!-- 3 Typical Investor Profiles -->
-        <div class="text-center max-w-3xl mx-auto mb-12">
-            <span class="text-xs font-bold text-tealAccent uppercase tracking-wider block mb-2">Who Uses Our Telemetry</span>
-            <h2 class="text-3xl font-bold text-nordic-heading">Designed for Standard Portfolio Structures</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Profile 1 -->
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="w-10 h-10 rounded-xl bg-tealAccent-light flex items-center justify-center text-tealAccent text-lg font-bold mb-4">
-                        👔
-                    </div>
-                    <h3 class="font-heading text-lg font-bold text-nordic-heading mb-2">Workplace Pension Saver</h3>
-                    <p class="text-xs text-nordic-text leading-relaxed">
-                        Holds standard corporate 401(k), IRA, or workplace pension plans offering tiered risk choices (e.g., Growth, Balanced, Stable Value).
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-teal-800 font-semibold">
-                    Uses weekly Barometer telemetry to evaluate how current market weather aligns with their chosen pension risk tier.
-                </div>
-            </div>
-
-            <!-- Profile 2 -->
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="w-10 h-10 rounded-xl bg-amberBrass-light flex items-center justify-center text-amberBrass text-lg font-bold mb-4">
-                        📈
-                    </div>
-                    <h3 class="font-heading text-lg font-bold text-nordic-heading mb-2">Self-Directed ETF Investor</h3>
-                    <p class="text-xs text-nordic-text leading-relaxed">
-                        Manages personal brokerage accounts utilizing broad US or EU UCITS index ETFs (e.g., SPY, SXR8.DE, SGOV, XEON.DE as benchmarks).
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-amber-900 font-semibold">
-                    Monitors the Sector Compass to observe institutional money flows, Chandelier floors, and defensive money-market benchmarks.
-                </div>
-            </div>
-
-            <!-- Profile 3 -->
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-coralAlert text-lg font-bold mb-4">
-                        🛡️
-                    </div>
-                    <h3 class="font-heading text-lg font-bold text-nordic-heading mb-2">Pre-Retirement Preserver</h3>
-                    <p class="text-xs text-nordic-text leading-relaxed">
-                        Within 5 to 10 years of retirement, where sequence-of-returns risk and deep drawdowns are a primary focus.
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-rose-900 font-semibold">
-                    Follows systematic weekly regime readings to stay informed on macroeconomic risk without daily screen stress.
-                </div>
+                The results shown in the Crash Simulator are hypothetical and generated by applying mathematical drawdown assumptions to illustrative market cycles. Hypothetical or simulated performance results have certain inherent limitations. Unlike an actual performance record, simulated results do not represent actual trading.
             </div>
         </div>
     </section>
@@ -746,19 +721,17 @@
                     Test the complete Pro Captain cockpit and Friday email alerts free for 14 days with just your email. No automatic charges. After 14 days, upgrade to Pro Captain or continue on Free Crew.
                 </p>
 
-                <!-- Billing Toggle -->
                 <div class="inline-flex items-center gap-3 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm">
                     <button id="toggleMonthly" onclick="setBilling('monthly')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-tealAccent text-white">
                         Monthly Billing
                     </button>
                     <button id="toggleAnnual" onclick="setBilling('annual')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all text-nordic-text hover:text-nordic-heading">
-                        Annual Billing <span class="bg-amberBrass-light text-amberBrass px-2 py-0.5 rounded-full text-[10px] ml-1">2 Months Free</span>
+                        Annual Billing <span class="bg-amberBrass-light text-amber-900 px-2 py-0.5 rounded-full text-[10px] ml-1">2 Months Free</span>
                     </button>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-                <!-- 14-Day Free Trial + Free Crew Tier -->
                 <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-4">
@@ -784,20 +757,19 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="https://wealth-trend-compass.streamlit.app/?utm_source=landing_pricing_trial" target="_blank" rel="noopener" class="block text-center w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 font-bold text-sm text-white shadow-sm transition-colors">
+                    <a href="https://wealth-trend-compass.streamlit.app/?utm_source=landing_pricing_trial" target="_blank" rel="noopener" class="block text-center w-full py-3.5 rounded-xl bg-[#0F202D] hover:bg-slate-800 font-bold text-sm text-white border border-[#C59B43] shadow-sm transition-colors">
                         🚀 Start 14-Day Free Pro Trial (No Credit Card)
                     </a>
                 </div>
 
-                <!-- Pro Captain Tier -->
-                <div class="bg-white rounded-3xl p-8 border-2 border-tealAccent shadow-xl relative flex flex-col justify-between">
-                    <div class="absolute top-0 right-0 bg-tealAccent text-white text-[10px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-bl-2xl">
+                <div class="bg-white rounded-3xl p-8 border-2 border-[#C59B43] shadow-xl relative flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-[#0F202D] text-[#C59B43] text-[10px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-bl-2xl">
                         FULL TELEMETRY ACCESS
                     </div>
                     <div>
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="font-heading text-2xl font-bold text-nordic-heading">Pro Captain</h3>
-                            <span class="px-3 py-1 bg-tealAccent-light text-teal-800 rounded-full text-xs font-bold">Full Radar</span>
+                            <span class="px-3 py-1 bg-amberBrass-light text-amber-900 rounded-full text-xs font-bold">Full Radar</span>
                         </div>
                         <div class="text-3xl font-bold text-nordic-heading mb-1">
                             <span id="proPriceText">€24</span> <span id="proPeriodText" class="text-xs font-normal text-slate-400">/ month</span>
@@ -823,7 +795,6 @@
                             </li>
                         </ul>
 
-                        <!-- Mandatory Legal & EU 14-Day Right of Withdrawal Waiver Checkbox -->
                         <label class="flex items-start gap-2.5 text-[11px] text-nordic-text bg-slate-50 p-3 rounded-xl border border-slate-200 mb-4 cursor-pointer">
                             <input type="checkbox" id="terms-consent-checkbox"
                                    onchange="
@@ -857,11 +828,14 @@
                         function syncStripeButton() {
                             if (!priceEl || !btnEl) return;
                             const isAnnual = priceEl.textContent.trim().includes('20');
+                            const params = new URLSearchParams(window.location.search);
+                            const refSource = params.get('ref') || params.get('utm_source') || 'landing_pricing';
+                            const cleanRef = refSource.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 40);
                             if (isAnnual) {
-                                btnEl.href = 'https://buy.stripe.com/6oU14f8pFfg4gnS7cUaVa01';
+                                btnEl.href = 'https://buy.stripe.com/6oU14f8pFfg4gnS7cUaVa01?client_reference_id=' + cleanRef + '_annual';
                                 btnEl.textContent = 'Subscribe Annually — €240 / year (2 Months Free)';
                             } else {
-                                btnEl.href = 'https://buy.stripe.com/00w7sD49p9VK9Zu9l2aVa02';
+                                btnEl.href = 'https://buy.stripe.com/00w7sD49p9VK9Zu9l2aVa02?client_reference_id=' + cleanRef + '_monthly';
                                 btnEl.textContent = 'Subscribe Monthly — €24 / month';
                             }
                         }
@@ -870,21 +844,6 @@
                         if (btnAnnualToggle) btnAnnualToggle.addEventListener('click', () => setTimeout(syncStripeButton, 10));
                     })();
                     </script>
-                </div>
-            </div>
-
-            <!-- Interactive Basis-Point Perspective Box -->
-            <div class="max-w-3xl mx-auto bg-white rounded-2xl p-6 border border-amberBrass/30 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-2xl bg-amberBrass-light flex items-center justify-center text-amberBrass text-xl flex-shrink-0">
-                        ⚖️
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-bold text-base text-nordic-heading">The Basis-Point Cost Perspective</h4>
-                        <p class="text-xs text-nordic-text">
-                            An annual Pro subscription (€240/yr) equals just <span class="font-bold text-tealAccent">0.096% (9.6 bps)</span> relative to a €250,000 portfolio—compared to traditional 1.25% AUM advisory fees (€3,125/yr).
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -899,66 +858,47 @@
         </div>
 
         <div class="space-y-4">
-            <!-- FAQ Item 1 -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <button onclick="toggleFAQ(1)" class="w-full p-5 text-left flex justify-between items-center font-bold text-nordic-heading text-base focus:outline-none">
                     <span>How does the 14-day free Pro trial work without a credit card?</span>
                     <span id="faq-icon-1" class="text-tealAccent text-xl transition-transform">+</span>
                 </button>
                 <div id="faq-content-1" class="hidden p-5 pt-0 text-xs sm:text-sm text-nordic-text leading-relaxed border-t border-slate-100">
-                    Simply open the Cockpit and enter your email address in the left sidebar. You immediately unlock 14 days of full Pro Captain telemetry (including the Live Risk Barometer, all 11 Sectors, unlimited X-Ray lookups, and our Friday 23:00 CET email briefing). No credit card is required, and you will never be auto-charged. After 14 days, you can choose to subscribe to Pro Captain or continue on the free tier.
+                    Simply open the Cockpit and enter your email address in the left sidebar. You immediately unlock 14 days of full Pro Captain telemetry (including the Live Risk Barometer, all 11 Sectors, unlimited X-Ray lookups, and our Friday 23:00 CET email briefing). No credit card is required, and you will never be auto-charged.
                 </div>
             </div>
 
-            <!-- FAQ Item 2 -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <button onclick="toggleFAQ(2)" class="w-full p-5 text-left flex justify-between items-center font-bold text-nordic-heading text-base focus:outline-none">
                     <span>How much time does a weekly check take?</span>
                     <span id="faq-icon-2" class="text-tealAccent text-xl transition-transform">+</span>
                 </button>
                 <div id="faq-content-2" class="hidden p-5 pt-0 text-xs sm:text-sm text-nordic-text leading-relaxed border-t border-slate-100">
-                    Around 2 minutes at the end of the week. You check the cockpit barometer and sector tables (or read your Friday night email summary). Most weeks, the regime remains unchanged. When the barometer or a sector's Chandelier Floor registers a regime shift, you have clear, objective data to evaluate your portfolio posture.
+                    Around 2 minutes at the end of the week. You check the cockpit barometer and sector tables (or read your Friday night email summary).
                 </div>
             </div>
 
-            <!-- FAQ Item 3 -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <button onclick="toggleFAQ(3)" class="w-full p-5 text-left flex justify-between items-center font-bold text-nordic-heading text-base focus:outline-none">
                     <span>Do you manage my money, provide personalized advice, or connect to my bank?</span>
                     <span id="faq-icon-3" class="text-tealAccent text-xl transition-transform">+</span>
                 </button>
                 <div id="faq-content-3" class="hidden p-5 pt-0 text-xs sm:text-sm text-nordic-text leading-relaxed border-t border-slate-100">
-                    No. Wealth Trend Compass is an automated financial data publisher and macroeconomic observation tool—not a financial adviser or asset manager. We never hold client funds, never access your brokerage or bank accounts, and do not provide personalized investment advice. You retain 100% control and responsibility for your own financial decisions.
-                </div>
-            </div>
-
-            <!-- FAQ Item 4 -->
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <button onclick="toggleFAQ(4)" class="w-full p-5 text-left flex justify-between items-center font-bold text-nordic-heading text-base focus:outline-none">
-                    <span>What are the "Safe Harbor" benchmarks referenced in the cockpit?</span>
-                    <span id="faq-icon-4" class="text-tealAccent text-xl transition-transform">+</span>
-                </button>
-                <div id="faq-content-4" class="hidden p-5 pt-0 text-xs sm:text-sm text-nordic-text leading-relaxed border-t border-slate-100">
-                    During defensive or Hurricane regimes, the model references ultra-short-duration sovereign treasury and overnight money-market benchmarks (such as SGOV / SHY in the US or XEON.DE in Europe) as 0% equity-beta proxies, contrasting them with standard multi-asset pension tiers.
+                    No. Wealth Trend Compass is an automated financial data publisher and macroeconomic observation tool—not a financial adviser or asset manager.
                 </div>
             </div>
         </div>
     </section>
-<!-- COMPREHENSIVE LEGAL & REGULATORY FOOTER (Clean HTML for G2RS & Google Crawler) -->
+
+    <!-- COMPREHENSIVE LEGAL & REGULATORY FOOTER -->
     <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs leading-relaxed">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Top Row: Brand & Registered Corporate Entity (Mentioned Once) -->
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-800">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-tealAccent flex items-center justify-center text-white">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="9" stroke-width="2" />
-                            <polygon points="12 6 15 12 12 18 9 12" fill="currentColor" />
-                        </svg>
-                    </div>
+                    <img src="WTC_icon_500.jpg" alt="Wealth Trend Compass" class="w-10 h-10 rounded-full" />
                     <div>
                         <span class="font-heading font-bold text-lg text-white block leading-none">Wealth Trend Compass</span>
-                        <span class="text-[11px] text-teal-400 font-medium">Quantitative Macroeconomic Telemetry &amp; Market Regime Analytics</span>
+                        <span class="text-[11px] text-[#C59B43] font-medium">Quantitative Macroeconomic Telemetry &amp; Market Regime Analytics</span>
                     </div>
                 </div>
                 <div class="text-xs text-slate-300 md:text-right">
@@ -968,40 +908,32 @@
                 </div>
             </div>
 
-            <!-- Concise 4-Point Legal & G2RS Exemption Notice -->
             <div class="py-8 space-y-3 text-[11px] text-slate-400">
                 <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Legal Disclaimer &amp; Regulatory Exemption Notice</h4>
-
                 <p>
                     <strong class="text-slate-200">1. Statutory Licensing Exemption (Finanstilsynet / Danish FSA):</strong>
-                    Wealth Trend Compass (&ldquo;the Platform&rdquo;) is an automated financial data publisher providing uniform, impersonal market statistics to the public. We do not provide personalized investment advice, suitability assessments, portfolio management, or brokerage services under the Danish Investment Firms Act (<em>Fondsm&aelig;glerloven, Annex 1, Section A, Item 5</em>), MiFID II (<em>Directive 2014/65/EU, Art. 4(1)(4)</em>), or the US Investment Advisers Act of 1940. Pursuant to <strong class="text-slate-200">Commission Delegated Regulation (EU) 2017/565, Article 9</strong>, general financial publications and impersonal data distributions issued exclusively to the public/subscribers are statutorily exempt from licensing and registration with the Danish Financial Supervisory Authority (<em>Finanstilsynet</em>).
+                    Wealth Trend Compass (&ldquo;the Platform&rdquo;) is an automated financial data publisher providing uniform, impersonal market statistics to the public. Pursuant to <strong class="text-slate-200">Commission Delegated Regulation (EU) 2017/565, Article 9</strong>, general financial publications and impersonal data distributions issued exclusively to the public/subscribers are statutorily exempt from licensing and registration with the Danish Financial Supervisory Authority (<em>Finanstilsynet</em>).
                 </p>
-
                 <p>
                     <strong class="text-slate-200">2. Reference Tickers &amp; Model Benchmarks:</strong>
                     References to specific ETFs or indices (including SPY, SXR8.DE, HYG, IEF, SGOV, SHY, XEON.DE, VIX, and VIX3M) serve solely as macroeconomic proxies and illustrative benchmarks without regard to individual financial circumstances.
                 </p>
-
                 <p>
                     <strong class="text-slate-200">3. Hypothetical Performance &amp; Risk Assumption:</strong>
-                    Historical regime backtests and crash simulations do not represent actual trading and do not reflect liquidity constraints, slippage, fees, or taxes. <strong class="text-slate-300">Past performance is no guarantee of future results.</strong> Investing involves substantial risk of loss. The Platform is provided strictly &ldquo;AS IS&rdquo; without warranty.
-                </p>
-
-                <p>
-                    <strong class="text-slate-200">4. Conflicts of Interest (EU MAR Art. 20):</strong>
-                    The company and its owners may hold or trade positions in referenced broad-market ETFs at any time without notice.
+                    Historical regime backtests and crash simulations do not represent actual trading. <strong class="text-slate-300">Past performance is no guarantee of future results.</strong>
                 </p>
             </div>
 
-            <!-- Bottom Copyright & Legal Modal Links -->
             <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
                 <span>&copy; 2026 Wealth Trend Compass. All rights reserved.</span>
                 <div class="flex items-center gap-4 shrink-0">
-                    <button type="button" onclick="openLegalModal('terms')" class="hover:text-slate-300 underline transition-colors cursor-pointer">Terms of Service</button>
+                    <a href="insights.html" class="hover:text-slate-300 underline">Weekly Regime Archive</a>
                     <span>|</span>
-                    <button type="button" onclick="openLegalModal('privacy')" class="hover:text-slate-300 underline transition-colors cursor-pointer">Privacy Policy (GDPR)</button>
+                    <button type="button" onclick="openLegalModal('terms')" class="hover:text-slate-300 underline cursor-pointer">Terms of Service</button>
                     <span>|</span>
-                    <button type="button" onclick="openLegalModal('risk')" class="hover:text-slate-300 underline transition-colors cursor-pointer">Full Risk Disclosure</button>
+                    <button type="button" onclick="openLegalModal('privacy')" class="hover:text-slate-300 underline cursor-pointer">Privacy Policy (GDPR)</button>
+                    <span>|</span>
+                    <button type="button" onclick="openLegalModal('risk')" class="hover:text-slate-300 underline cursor-pointer">Full Risk Disclosure</button>
                 </div>
             </div>
         </div>
@@ -1010,60 +942,44 @@
     <!-- INTERACTIVE SIGN-IN / 14-DAY FREE TRIAL MODAL -->
     <div id="modalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
-            <button type="button" onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold">
-                ✕
-            </button>
-
-            <!-- Modal Header -->
+            <button type="button" onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
             <div class="text-center mb-6">
-                <div class="w-12 h-12 rounded-2xl bg-tealAccent-light flex items-center justify-center text-tealAccent mx-auto mb-3 text-xl">
-                    🧭
-                </div>
+                <img src="WTC_icon_500.jpg" alt="Wealth Trend Compass" class="w-14 h-14 rounded-full mx-auto mb-3 shadow-md" />
                 <h3 id="modalTitle" class="font-heading text-2xl font-bold text-nordic-heading">Start 14-Day Free Pro Trial</h3>
                 <p id="modalSub" class="text-xs text-nordic-text mt-1">No credit card required. Enter your email inside the Cockpit sidebar for instant 1-click access.</p>
             </div>
-
-            <!-- Modal Form (Passwordless Redirect to Cockpit) -->
             <form onsubmit="handleModalSubmit(event)" class="space-y-4">
                 <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs text-nordic-text space-y-1.5">
                     <div class="font-bold text-nordic-heading">✓ 14 Days Full Pro Captain Telemetry (€0)</div>
                     <div>✓ Live Friday Risk Barometer &amp; All 11 Sectors</div>
                     <div>✓ Automated Friday 23:00 CET Email Briefing</div>
-                    <div>✓ Passwordless login (6-digit email verification for paid Pro accounts)</div>
                 </div>
-                <button type="submit" id="modalSubmitBtn" class="w-full py-3.5 bg-tealAccent hover:bg-tealAccent-hover text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                <button type="submit" id="modalSubmitBtn" class="w-full py-3.5 bg-[#0F202D] hover:bg-slate-800 text-white font-bold text-sm rounded-xl border border-[#C59B43] shadow-md transition-all">
                     🚀 Open Cockpit &amp; Start 14-Day Free Trial
                 </button>
             </form>
-            <div class="mt-4 text-center">
-                <span class="text-xs text-slate-400">Secured via 256-bit Stripe Customer Infrastructure &bull; HSO Management ApS / VIP Regnskab ApS</span>
-            </div>
         </div>
     </div>
 
-    <!-- LEGAL DOCUMENTS MODAL (Terms / Privacy / Full Risk Disclosure) -->
+    <!-- LEGAL DOCUMENTS MODAL -->
     <div id="legalModalOverlay" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl relative border border-slate-200">
             <div class="p-6 border-b border-slate-100 flex items-center justify-between">
-                <h3 id="legalModalTitle" class="font-heading text-xl font-bold text-nordic-heading">Terms of Service &amp; Regulatory Disclosure</h3>
+                <h3 id="legalModalTitle" class="font-heading text-xl font-bold text-nordic-heading">Terms of Service</h3>
                 <button type="button" onclick="closeLegalModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
             </div>
-            <div id="legalModalBody" class="p-6 overflow-y-auto text-xs text-nordic-text space-y-4 leading-relaxed">
-                <!-- Populated dynamically via openLegalModal() -->
-            </div>
+            <div id="legalModalBody" class="p-6 overflow-y-auto text-xs text-nordic-text space-y-4 leading-relaxed"></div>
             <div class="p-4 border-t border-slate-100 text-right">
-                <button type="button" onclick="closeLegalModal()" class="px-5 py-2 rounded-xl bg-tealAccent text-white font-bold text-xs hover:bg-tealAccent-hover">Close Window</button>
+                <button type="button" onclick="closeLegalModal()" class="px-5 py-2 rounded-xl bg-tealAccent text-white font-bold text-xs">Close Window</button>
             </div>
         </div>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- 1. STATE MANAGEMENT ---
-        let currentWeatherPhase = 0; // 0: High Press, 1: Shifting, 2: Low Press, 3: Hurricane
+        let currentWeatherPhase = 0;
         let currentBilling = 'monthly';
 
-        // Phase Configuration Data (100% Synchronized with MiFID II & SEC Publisher's Exclusion Framing)
         const phaseData = [
             {
                 name: "STATE: HIGH PRESSURE (FULL SAIL)",
@@ -1111,11 +1027,8 @@
             }
         ];
 
-        // --- 2. MARITIME COCKPIT CANVAS ANIMATION ---
         const cockpitCanvas = document.getElementById('cockpitCanvas');
         const ctx = cockpitCanvas ? cockpitCanvas.getContext('2d') : null;
-
-        let animationFrameId;
         let waveOffset = 0;
         let rainParticles = [];
 
@@ -1140,9 +1053,7 @@
             if (!ctx) return;
             const width = cockpitCanvas.width;
             const height = cockpitCanvas.height;
-
             ctx.clearRect(0, 0, width, height);
-
             const phase = currentWeatherPhase;
 
             ctx.save();
@@ -1166,19 +1077,6 @@
             }
             ctx.fillStyle = skyGradient;
             ctx.fillRect(0, 0, width, height * 0.55);
-
-            if (phase === 0) {
-                ctx.beginPath();
-                ctx.arc(width * 0.75, height * 0.2, 35, 0, Math.PI * 2);
-                ctx.fillStyle = '#fef08a';
-                ctx.shadowColor = '#fde047';
-                ctx.shadowBlur = 20;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            } else if (phase === 3 && Math.random() < 0.04) {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-                ctx.fillRect(0, 0, width, height * 0.55);
-            }
 
             let seaGradient = ctx.createLinearGradient(0, height * 0.55, 0, height);
             if (phase === 0) {
@@ -1205,98 +1103,32 @@
             ctx.lineTo(0, height);
             ctx.fillStyle = seaGradient;
             ctx.fill();
-
-            if (phase >= 2) {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                for (let x = 10; x < width; x += 40) {
-                    let capY = Math.sin(x * 0.015 + waveOffset) * 20 + height * 0.55;
-                    ctx.moveTo(x, capY);
-                    ctx.lineTo(x + 15, capY - 3);
-                }
-                ctx.stroke();
-
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-                ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                rainParticles.forEach(p => {
-                    p.y += p.speed;
-                    p.x -= 2;
-                    if (p.y > height) {
-                        p.y = -20;
-                        p.x = Math.random() * width;
-                    }
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p.x - 5, p.y + p.length);
-                });
-                ctx.stroke();
-
-                const wpX = width * 0.2;
-                const wpY = height * 0.45;
-                ctx.fillStyle = '#d97706';
-                ctx.beginPath();
-                ctx.arc(wpX, wpY, 8, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.strokeStyle = '#fef3c7';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.arc(wpX, wpY, 14 + Math.sin(Date.now() * 0.008) * 4, 0, Math.PI * 2);
-                ctx.stroke();
-
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 10px sans-serif';
-                ctx.fillText('SAFE HARBOR WAYPOINT', wpX + 18, wpY + 4);
-            }
-
-            ctx.strokeStyle = 'rgba(226, 232, 240, 0.3)';
-            ctx.lineWidth = 6;
-            ctx.beginPath();
-            ctx.arc(width / 2, height * 1.3, height * 0.9, Math.PI, 0, false);
-            ctx.stroke();
-
             ctx.restore();
-
-            animationFrameId = requestAnimationFrame(drawCockpit);
+            requestAnimationFrame(drawCockpit);
         }
 
-        // --- 3. WEATHER PHASE SWITCHER FUNCTION ---
         function setWeatherPhase(index) {
             currentWeatherPhase = index;
             const data = phaseData[index];
-
             document.querySelectorAll('.weather-btn').forEach((btn, i) => {
-                if (i === index) {
-                    btn.className = "weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-tealAccent text-white border-tealAccent shadow-sm";
-                } else {
-                    btn.className = "weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100";
-                }
+                btn.className = (i === index)
+                    ? "weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-tealAccent text-white border-tealAccent shadow-sm"
+                    : "weather-btn px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100";
             });
-
             document.getElementById('hudRegimeText').innerText = data.name;
             document.getElementById('hudSubText').innerText = data.sub;
             document.getElementById('hudTiltText').innerText = data.tilt;
-
             const safeHarborHUD = document.getElementById('safeHarborHUD');
-            if (data.safeHarbor) {
-                safeHarborHUD.classList.remove('hidden');
-            } else {
-                safeHarborHUD.classList.add('hidden');
-            }
-
+            if (data.safeHarbor) safeHarborHUD.classList.remove('hidden');
+            else safeHarborHUD.classList.add('hidden');
             const barometerNeedle = document.getElementById('barometerNeedle');
-            if (barometerNeedle) {
-                barometerNeedle.style.transform = `rotate(${data.angle}deg)`;
-            }
-
+            if (barometerNeedle) barometerNeedle.style.transform = `rotate(${data.angle}deg)`;
             document.getElementById('gaugeVectorText').innerText = data.vector;
             document.getElementById('card1Action').innerText = data.card1;
             document.getElementById('card2Action').innerText = data.card2;
             document.getElementById('card3Action').innerText = data.card3;
         }
 
-        // --- 4. DRAWDOWN & COMPOUNDING SIMULATOR LOGIC ---
         const sliderPortfolio = document.getElementById('sliderPortfolio');
         const sliderHorizon = document.getElementById('sliderHorizon');
         const sliderCrash = document.getElementById('sliderCrash');
@@ -1307,45 +1139,30 @@
             const P = parseFloat(sliderPortfolio.value);
             const N = parseInt(sliderHorizon.value);
             const crashPct = parseInt(sliderCrash.value) / 100;
-
             document.getElementById('valPortfolio').innerText = '$' + P.toLocaleString();
             document.getElementById('valHorizon').innerText = N + ' Years';
             document.getElementById('valCrash').innerText = '-' + (crashPct * 100) + '%';
-
             const breakEvenGain = ((1 / (1 - crashPct)) - 1) * 100;
             document.getElementById('mathCrashPct').innerText = '-' + (crashPct * 100) + '%';
             document.getElementById('mathRecoveryPct').innerText = '+' + breakEvenGain.toFixed(1) + '%';
 
-            let unprotectedPoints = [];
-            let protectedPoints = [];
-
+            let unprotectedPoints = [P];
+            let protectedPoints = [P];
             let unprotCurrent = P;
             let protCurrent = P;
-
-            unprotectedPoints.push(unprotCurrent);
-            protectedPoints.push(protCurrent);
-
             for (let year = 1; year <= N; year++) {
-                const isCrashYear = (year % 6 === 0);
-
-                if (isCrashYear) {
-                    unprotCurrent = unprotCurrent * (1 - crashPct);
-                    protCurrent = protCurrent * 0.96;
+                if (year % 6 === 0) {
+                    unprotCurrent *= (1 - crashPct);
+                    protCurrent *= 0.96;
                 } else {
-                    unprotCurrent = unprotCurrent * 1.08;
-                    protCurrent = protCurrent * 1.08;
+                    unprotCurrent *= 1.08;
+                    protCurrent *= 1.08;
                 }
-
                 unprotectedPoints.push(unprotCurrent);
                 protectedPoints.push(protCurrent);
             }
-
-            const finalUnprotected = unprotectedPoints[unprotectedPoints.length - 1];
-            const finalProtected = protectedPoints[protectedPoints.length - 1];
-
-            document.getElementById('resUnprotected').innerText = '$' + Math.round(finalUnprotected).toLocaleString();
-            document.getElementById('resProtected').innerText = '$' + Math.round(finalProtected).toLocaleString();
-
+            document.getElementById('resUnprotected').innerText = '$' + Math.round(unprotCurrent).toLocaleString();
+            document.getElementById('resProtected').innerText = '$' + Math.round(protCurrent).toLocaleString();
             drawChart(unprotectedPoints, protectedPoints, N);
         }
 
@@ -1353,44 +1170,24 @@
             if (!chartCtx || !chartCanvas) return;
             chartCanvas.width = chartCanvas.parentElement.clientWidth;
             chartCanvas.height = chartCanvas.parentElement.clientHeight;
-
             const w = chartCanvas.width;
             const h = chartCanvas.height;
-
             chartCtx.clearRect(0, 0, w, h);
-
             const padding = 40;
             const maxVal = Math.max(...unprotected, ...protectedData) * 1.1;
-
             const getX = (idx) => padding + (idx / years) * (w - padding * 2);
             const getY = (val) => h - padding - (val / maxVal) * (h - padding * 2);
-
-            chartCtx.strokeStyle = '#e2e8f0';
-            chartCtx.lineWidth = 1;
-            for (let i = 0; i <= 4; i++) {
-                let y = padding + (i / 4) * (h - padding * 2);
-                chartCtx.beginPath();
-                chartCtx.moveTo(padding, y);
-                chartCtx.lineTo(w - padding, y);
-                chartCtx.stroke();
-            }
 
             chartCtx.strokeStyle = '#94a3b8';
             chartCtx.lineWidth = 3;
             chartCtx.beginPath();
-            unprotected.forEach((val, i) => {
-                if (i === 0) chartCtx.moveTo(getX(i), getY(val));
-                else chartCtx.lineTo(getX(i), getY(val));
-            });
+            unprotected.forEach((val, i) => { if (i === 0) chartCtx.moveTo(getX(i), getY(val)); else chartCtx.lineTo(getX(i), getY(val)); });
             chartCtx.stroke();
 
             chartCtx.strokeStyle = '#0d9488';
             chartCtx.lineWidth = 4;
             chartCtx.beginPath();
-            protectedData.forEach((val, i) => {
-                if (i === 0) chartCtx.moveTo(getX(i), getY(val));
-                else chartCtx.lineTo(getX(i), getY(val));
-            });
+            protectedData.forEach((val, i) => { if (i === 0) chartCtx.moveTo(getX(i), getY(val)); else chartCtx.lineTo(getX(i), getY(val)); });
             chartCtx.stroke();
         }
 
@@ -1400,31 +1197,25 @@
             sliderCrash.addEventListener('input', updateSimulator);
         }
 
-        // --- 5. PRICING TOGGLE LOGIC ---
         function setBilling(type) {
             currentBilling = type;
             const btnMonthly = document.getElementById('toggleMonthly');
             const btnAnnual = document.getElementById('toggleAnnual');
             const priceText = document.getElementById('proPriceText');
-            const periodText = document.getElementById('proPeriodText');
             const subtext = document.getElementById('proBillingSubtext');
-
             if (type === 'annual') {
                 btnAnnual.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all bg-tealAccent text-white";
                 btnMonthly.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-nordic-text hover:text-nordic-heading";
                 priceText.innerText = "€20";
-                periodText.innerText = "/ month";
                 subtext.innerText = "Billed annually (€240/yr - Save 2 Months Free). VAT included.";
             } else {
                 btnMonthly.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all bg-tealAccent text-white";
                 btnAnnual.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-nordic-text hover:text-nordic-heading";
                 priceText.innerText = "€24";
-                periodText.innerText = "/ month";
                 subtext.innerText = "Billed monthly. Cancel anytime. VAT included.";
             }
         }
 
-        // --- 6. FAQ ACCORDION TOGGLE ---
         function toggleFAQ(id) {
             const content = document.getElementById(`faq-content-${id}`);
             const icon = document.getElementById(`faq-icon-${id}`);
@@ -1437,104 +1228,42 @@
             }
         }
 
-        // --- 7. MODAL CONTROLS & HANDLERS ---
         function openModal(mode) {
-            const overlay = document.getElementById('modalOverlay');
-            const title = document.getElementById('modalTitle');
-            const sub = document.getElementById('modalSub');
-            const btn = document.getElementById('modalSubmitBtn');
-
-            overlay.classList.remove('hidden');
-
-            if (mode === 'stripe') {
-                title.innerText = "Start 14-Day Free Pro Trial";
-                sub.innerText = "Unlock full Pro Captain telemetry for 14 days with just your email (no credit card required).";
-                btn.innerText = "🚀 Open Cockpit & Start 14-Day Trial";
-            } else if (mode === 'signup-free') {
-                title.innerText = "Start 14-Day Free Pro Trial";
-                sub.innerText = "Enter your email inside the Cockpit sidebar for 14 days of full Pro access (then Free Crew).";
-                btn.innerText = "🚀 Launch Cockpit (No Credit Card)";
-            } else {
-                title.innerText = "Access WTC Cockpit";
-                sub.innerText = "Sign in or start your 14-day free Pro trial inside the Cockpit.";
-                btn.innerText = "🧭 Launch Live Cockpit";
-            }
+            document.getElementById('modalOverlay').classList.remove('hidden');
         }
-
         function closeModal() {
             document.getElementById('modalOverlay').classList.add('hidden');
         }
-
         function handleModalSubmit(e) {
             e.preventDefault();
             closeModal();
-            window.open("https://wealth-trend-compass.streamlit.app/?utm_source=landing_modal", "_blank");
+            const params = new URLSearchParams(window.location.search);
+            const ref = params.get('ref') || 'landing_modal';
+            window.open("https://wealth-trend-compass.streamlit.app/?ref=" + encodeURIComponent(ref), "_blank");
         }
 
-        // --- 8. LEGAL MODALS (Terms / Privacy / Risk Disclosure) ---
         const legalTexts = {
-            terms: {
-                title: "Terms of Service & Subscription Agreement",
-                html: `
-                    <p><strong>1. Corporate Identity, Domain Ownership &amp; Contracting Party:</strong> Wealth Trend Compass ("the Platform") and the domain <strong>wealthtrendcompass.com</strong> are wholly owned and operated by <strong>HSO Management ApS</strong> (officially registered secondary name of <strong>VIP Regnskab ApS</strong>), registered with the Danish Business Authority (Erhvervsstyrelsen) under Company Registration Number (CVR): <strong>10098521</strong> (EU VAT no.: <strong>DK10098521</strong>), with its registered office at Skovholmsvej 18, 3300 Frederiksvaerk, Denmark (Contact: <a href="mailto:support@wealthtrendcompass.com" class="text-tealAccent underline">support@wealthtrendcompass.com</a>). By creating an account, accessing the Cockpit, or subscribing to any membership tier, you agree to be bound by these Terms of Service.</p>
-                    <p><strong>2. Nature of Service &amp; Statutory Licensing Exemption (Automated Data Publisher &mdash; Not Investment Advice):</strong> The Platform provides automated, impersonal macroeconomic telemetry, technical price/volume indicators, and benchmark regime observations on a weekly (1W) basis. The Platform is not an investment adviser, financial planner, portfolio manager, or broker-dealer, and does not provide personalized investment advice or suitability assessments as defined under the Danish Investment Firms Act (<em>Lov om fondsm&aelig;glerselskaber og investeringsservice og -aktiviteter / Fondsm&aelig;glerloven, Annex 1, Section A, Item 5</em>) or EU Directive 2014/65/EU (MiFID II, Art. 4(1)(4)). Pursuant to <strong>Commission Delegated Regulation (EU) 2017/565, Article 9</strong>, general financial publications and impersonal data distributions issued exclusively to the public/subscribers are statutorily exempt from licensing and registration with the Danish Financial Supervisory Authority (Finanstilsynet). All data and indicators are identical for all users viewing the same ticker and are strictly for educational and informational purposes. You are 100% responsible for your own financial decisions.</p>
-                    <p><strong>3. "AS-IS" Service, No Uptime Guarantee &amp; No Email Delivery Liability:</strong> The Platform, its third-party market data feeds, and all automated email alerts (including Friday briefings and weather-shift notifications) are provided strictly on an <strong>"AS IS" and "AS AVAILABLE"</strong> basis. We make no warranties regarding continuous uptime, server availability, or the absence of delays, omissions, or inaccuracies in third-party market data. Automated emails are provided solely as a courtesy feature; we assume <strong>zero liability</strong> if any email notification is delayed, blocked by spam filters, undelivered, or missed, or if the Cockpit is temporarily inaccessible during periods of market volatility. Users remain solely responsible for independently monitoring their own financial accounts.</p>
-                    <p><strong>4. 14-Day Free Trial, Subscriptions, No Lock-In &amp; No-Refund Policy (EU Digital Content Waiver):</strong> New users may test Pro Captain features for 14 days using only their email address without providing a payment card. Paid Pro Captain memberships are billed in advance on a recurring monthly or annual cycle via Stripe. <strong>There is no minimum lock-in period:</strong> you may cancel your subscription at any time with a single click via your account/Stripe billing portal, and your access will continue until the end of the current paid billing period without further charges. By subscribing to a paid plan, you expressly request immediate access to digital content and acknowledge that you thereby <strong>waive any statutory 14-day right of withdrawal</strong> under EU Consumer Rights Directive 2011/83/EU. Consequently, <strong>all payments are final and non-refundable</strong>, and no partial refunds or credits are issued for unused time within a billing period.</p>
-                    <p><strong>5. Personal Non-Commercial License &amp; Anti-Redistribution:</strong> Your membership grants a personal, non-transferable license for a single individual. You may not share login credentials, scrape market tables, or redistribute, republish, or resell our telemetry, screening lists, or email alerts to third parties or advisory clients without a written commercial license.</p>
-                    <p><strong>6. Limitation of Liability:</strong> To the maximum extent permitted by law, the company, its directors, and affiliates shall under no circumstances be liable for any investment losses, trading drawdowns, lost profits, opportunity costs, tax liabilities, or indirect/consequential damages arising from the use of—or inability to use—the Platform. In all events, total cumulative liability to any user shall not exceed the total subscription fees actually paid by that user during the three (3) months immediately preceding the claim.</p>
-                    <p><strong>7. Governing Law &amp; Jurisdiction:</strong> These Terms and any dispute arising out of or in connection with the Platform shall be governed exclusively by the <strong>laws of Denmark</strong> (excluding its conflict-of-law rules). Any legal claim or proceeding shall be brought exclusively before the competent Danish courts having jurisdiction over our registered office.</p>
-                `
-            },
-            privacy: {
-                title: "Privacy Policy & GDPR Data Protection Notice",
-                html: `
-                    <p><strong>1. Data Controller:</strong> The data controller responsible for your personal data under the EU General Data Protection Regulation (GDPR) is <strong>HSO Management ApS / VIP Regnskab ApS</strong>, CVR no. 10098521 (VAT: DK10098521), Skovholmsvej 18, 3300 Frederiksvaerk, Denmark (Email: <a href="mailto:support@wealthtrendcompass.com" class="text-tealAccent underline">support@wealthtrendcompass.com</a>).</p>
-                    <p><strong>2. Data We Collect (Data Minimization Principle):</strong> We collect and process only the minimum data necessary to deliver our service: (a) your email address and name when you activate a 14-day trial or subscription, (b) your selected email notification preferences stored in your Stripe customer profile, and (c) your subscription tier status and statutory billing records via Stripe. <strong>We never collect or store your payment card numbers on our servers, and we never request access to your bank, pension, or brokerage accounts.</strong></p>
-                    <p><strong>3. Legal Basis &amp; Purpose (GDPR Art. 6):</strong> We process your data to deliver your requested 14-day trial or subscription contract (Art. 6(1)(b)), to comply with Danish accounting and EU VAT/OSS tax retention laws (Art. 6(1)(c)), and to maintain platform security via passwordless 6-digit email verification (Art. 6(1)(f)).</p>
-                    <p><strong>4. Sub-Processors &amp; Data Transfers:</strong> To operate the Platform securely, we utilize trusted infrastructure providers bound by GDPR Data Processing Agreements (DPAs): <strong>Stripe</strong> (PCI-DSS Level 1 Payment Processing, Customer Metadata &amp; Invoicing), <strong>GitHub &amp; Streamlit Cloud</strong> (Application Hosting), and <strong>Microsoft 365 / Resend</strong> (Transactional Email &amp; Security Code Delivery).</p>
-                    <p><strong>5. Cookies &amp; Tracking:</strong> Wealth Trend Compass does <strong>not</strong> use third-party advertising, behavioral profiling, or cross-site tracking cookies. We use only strictly necessary technical session tokens required for application state and secure Stripe checkout.</p>
-                    <p><strong>6. Retention &amp; Your GDPR Rights:</strong> You have the right to access, rectify, export, or request immediate erasure of your personal account data at any time, as well as the right to turn off email notifications in the Cockpit. Bookkeeping records of paid invoices are retained for 5 years in accordance with the Danish Bookkeeping Act (Bogføringsloven). Contact <a href="mailto:support@wealthtrendcompass.com" class="text-tealAccent underline">support@wealthtrendcompass.com</a> to exercise your rights. You also have the right to lodge a complaint with the Danish Data Protection Agency (Datatilsynet).</p>
-                `
-            },
-            risk: {
-                title: "Full Risk Disclosure & CFTC / EU MAR Regulatory Notice",
-                html: `
-                    <p><strong>1. Market &amp; Principal Loss Risk:</strong> Investing in equities, ETFs, fixed-income securities, and money-market instruments involves a substantial risk of loss, including the potential loss of principal. Even defensive, short-duration sovereign, or "Safe Harbor" money-market allocations carry credit risk, interest-rate risk, currency risk, and inflation risk. Quantitative trend, breadth, and volatility models are mathematical abstractions based on historical data; they cannot predict the future and can experience whipsaws, lag, false signals, or severe drawdowns during sudden market gaps or unprecedented macroeconomic events.</p>
-                    <p><strong>2. CFTC Rule 4.41 Hypothetical Performance Disclosure:</strong> Hypothetical or simulated performance results—including those illustrated in the Crash Simulator—have many inherent limitations. Unlike an actual performance record, simulated results do not represent actual trading. Also, since the trades have not actually been executed, the results may have under- or over-compensated for the impact, if any, of certain market factors, such as lack of liquidity, execution delays, bid-ask spreads, slippage, management fees, and taxes. Simulated trading programs in general are also subject to the fact that they are designed with the benefit of hindsight. No representation is being made that any account will or is likely to achieve profits or avoid losses similar to those shown.</p>
-                    <p><strong>3. Third-Party Market Data Disclaimer:</strong> Price, volume, and volatility data displayed in the Cockpit are sourced from third-party commercial data providers and exchanges. We do not guarantee the accuracy, completeness, or timeliness of any data feed and expressly disclaim any liability for errors or interruptions in market data.</p>
-                    <p><strong>4. EU MAR Art. 20 Conflicts of Interest Disclosure:</strong> The company, its owners, and affiliates may hold, purchase, or sell long or short positions in the broad-market ETFs, indices, or securities referenced on the Platform (such as SPY, SXR8.DE, ACWI, IUSQ.DE, QQQ, HYG, IEF, SGOV, SHY, XEON.DE) for their own accounts at any time without prior notice.</p>
-                `
-            }
+            terms: { title: "Terms of Service", html: `<p>Operated by HSO Management ApS / VIP Regnskab ApS (CVR/VAT: DK10098521), Skovholmsvej 18, 3300 Frederiksvaerk, Denmark. Wealth Trend Compass is an automated financial data publisher exempt under EU Regulation 2017/565 Art. 9.</p>` },
+            privacy: { title: "Privacy Policy (GDPR)", html: `<p>Data Controller: HSO Management ApS / VIP Regnskab ApS (CVR: 10098521). We process only email, name, and subscription metadata via Stripe and Resend.</p>` },
+            risk: { title: "Full Risk Disclosure", html: `<p>Investing involves substantial risk of loss. Past performance and hypothetical simulations do not guarantee future results.</p>` }
         };
 
         function openLegalModal(type) {
             const modal = document.getElementById('legalModalOverlay');
-            const title = document.getElementById('legalModalTitle');
-            const content = document.getElementById('legalModalBody') || document.getElementById('legalModalContent');
-            if (modal && title && content && legalTexts[type]) {
-                title.innerText = legalTexts[type].title;
-                content.innerHTML = legalTexts[type].html;
-                modal.classList.remove('hidden');
-            }
+            document.getElementById('legalModalTitle').innerText = legalTexts[type].title;
+            document.getElementById('legalModalBody').innerHTML = legalTexts[type].html;
+            modal.classList.remove('hidden');
         }
-
         function closeLegalModal() {
-            const modal = document.getElementById('legalModalOverlay');
-            if (modal) modal.classList.add('hidden');
+            document.getElementById('legalModalOverlay').classList.add('hidden');
         }
 
-        // --- 9. INITIALIZE ANIMATION & SIMULATOR ON PAGE LOAD ---
         window.addEventListener('load', () => {
             resizeCockpitCanvas();
             drawCockpit();
-            setWeatherPhase(0);
-            if (typeof updateSimulator === 'function' && sliderPortfolio) {
-                updateSimulator();
-            }
+            setWeatherPhase(2);
+            if (typeof updateSimulator === 'function' && sliderPortfolio) updateSimulator();
         });
-        // Start immediately as fallback if DOM is already loaded
-        resizeCockpitCanvas();
-        drawCockpit();
     </script>
 </body>
 </html>
