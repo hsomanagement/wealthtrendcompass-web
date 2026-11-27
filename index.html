@@ -1049,11 +1049,13 @@
         window.addEventListener('resize', resizeCockpitCanvas);
         resizeCockpitCanvas();
 
-        function drawCockpit() {
+function drawCockpit() {
             if (!ctx) return;
             const width = cockpitCanvas.width;
             const height = cockpitCanvas.height;
+
             ctx.clearRect(0, 0, width, height);
+
             const phase = currentWeatherPhase;
 
             ctx.save();
@@ -1061,6 +1063,7 @@
             ctx.rotate(Math.sin(Date.now() * 0.0015) * 0.03 + (phase === 3 ? Math.sin(Date.now() * 0.005) * 0.04 : 0));
             ctx.translate(-width / 2, -height / 2);
 
+            // 1. Sky Gradient
             let skyGradient = ctx.createLinearGradient(0, 0, 0, height * 0.55);
             if (phase === 0) {
                 skyGradient.addColorStop(0, '#38bdf8');
@@ -1078,6 +1081,21 @@
             ctx.fillStyle = skyGradient;
             ctx.fillRect(0, 0, width, height * 0.55);
 
+            // 2. Sun (Phase 0) or Lightning Flash (Phase 3)
+            if (phase === 0) {
+                ctx.beginPath();
+                ctx.arc(width * 0.75, height * 0.2, 35, 0, Math.PI * 2);
+                ctx.fillStyle = '#fef08a';
+                ctx.shadowColor = '#fde047';
+                ctx.shadowBlur = 20;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            } else if (phase === 3 && Math.random() < 0.04) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                ctx.fillRect(0, 0, width, height * 0.55);
+            }
+
+            // 3. Sea Gradient & Waves
             let seaGradient = ctx.createLinearGradient(0, height * 0.55, 0, height);
             if (phase === 0) {
                 seaGradient.addColorStop(0, '#0284c7');
@@ -1086,7 +1104,7 @@
                 seaGradient.addColorStop(0, '#0369a1');
                 seaGradient.addColorStop(1, '#0c4a6e');
             } else {
-                seaGradient.addColorStop(0, '#1e293b');
+                seaGradient.addColorStop(0, '#1e3a5f');
                 seaGradient.addColorStop(1, '#0f172a');
             }
             ctx.fillStyle = seaGradient;
@@ -1103,6 +1121,59 @@
             ctx.lineTo(0, height);
             ctx.fillStyle = seaGradient;
             ctx.fill();
+
+            // 4. Whitecaps, Rain & Safe Harbor Waypoint Beacon (Phases 2 & 3)
+            if (phase >= 2) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                for (let x = 10; x < width; x += 40) {
+                    let capY = Math.sin(x * 0.015 + waveOffset) * 20 + height * 0.55;
+                    ctx.moveTo(x, capY);
+                    ctx.lineTo(x + 15, capY - 3);
+                }
+                ctx.stroke();
+
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                rainParticles.forEach(p => {
+                    p.y += p.speed;
+                    p.x -= 2;
+                    if (p.y > height) {
+                        p.y = -20;
+                        p.x = Math.random() * width;
+                    }
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p.x - 5, p.y + p.length);
+                });
+                ctx.stroke();
+
+                const wpX = width * 0.2;
+                const wpY = height * 0.45;
+                ctx.fillStyle = '#C59B43';
+                ctx.beginPath();
+                ctx.arc(wpX, wpY, 8, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = '#fef3c7';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(wpX, wpY, 14 + Math.sin(Date.now() * 0.008) * 4, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 10px sans-serif';
+                ctx.fillText('SAFE HARBOR WAYPOINT', wpX + 18, wpY + 4);
+            }
+
+            // 5. Cockpit Helm Arc
+            ctx.strokeStyle = 'rgba(226, 232, 240, 0.35)';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.arc(width / 2, height * 1.3, height * 0.9, Math.PI, 0, false);
+            ctx.stroke();
+
             ctx.restore();
             requestAnimationFrame(drawCockpit);
         }
